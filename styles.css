@@ -1,0 +1,341 @@
+/* Réinitialisation des marges et des rembourrages par défaut */
+body, h1, h2, h3, p, ul, li, form {
+    margin: 0;
+    padding: 0;
+}
+
+/* Style du header */
+header {
+    background-color: black;
+    color: white;
+    font-family: 'Poppins', sans-serif;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 10px 20px;
+}
+
+/* Style du logo */
+#logo img {
+    max-width: 50px; /* Ajustez la largeur de votre logo comme nécessaire */
+}
+
+/* Style de la navigation */
+nav ul {
+    list-style: none;
+}
+
+nav ul li {
+    display: inline;
+    margin-right: 20px;
+}
+
+nav a {
+    text-decoration: none;
+    color: white;
+}
+
+/* Style du bouton de connexion */
+#connexion button {
+    background-color: white;
+    color: black;
+    border: none;
+    border-radius: 10px;
+    padding: 10px 20px;
+    cursor: pointer;
+    font-family: 'Poppins', sans-serif;
+}
+
+#connexion button a {
+    text-decoration: none;
+    color: black;
+}
+
+/* Style du contenu */
+.content {
+    background-color: #f0f0f0; /* Couleur de fond du rectangle */
+    padding: 20px;
+    justify-content: space-between;
+    display: flex;
+}
+
+/* Style de la boîte de règlement */
+.rules-box {
+    background-color: white;
+    padding: 20px;
+    width: 80%;
+    margin-right: 20px;
+    border-radius: 10px;
+    box-shadow: 0 0 5px rgba(0, 0, 0, 0.1);
+}
+
+.rules-box h1 {
+    font-size: 24px;
+    font-family: 'Poppins', sans-serif;
+}
+
+.rules-box .h2 {
+    font-size: 1.15rem;
+    line-height: 1.6;
+    text-decoration: underline;
+    margin-bottom: 20px;
+    font-family: 'Poppins', sans-serif;
+}
+
+.rules-box p {
+    font-size: 1rem;
+    line-height: 1.6;
+    margin-bottom: 20px;
+    font-family: 'Poppins', sans-serif;
+}
+
+.rules-box .astérisque {
+    font-size: 0.8rem;
+    margin-bottom: 20px;
+    font-family: 'Poppins', sans-serif;
+}
+
+.calendar-box {
+    background-color: #333;
+    padding: 25px;
+    width: 20%;
+    border-radius: 10px;
+    box-shadow: 0 0 5px rgba(0, 0, 0, 0.1);
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+}
+
+.calendar-box .navigation {
+    display: flex;
+    justify-content: space-between;
+}
+
+.calendar-box .month {
+    font-size: 1.5rem;
+    color: white;
+    font-family: 'Poppins', sans-serif;
+    margin-bottom: 5px;
+}
+
+.calendar-box .days {
+    display: grid;
+    color: white;
+    font-family: 'Poppins', sans-serif;
+    grid-template-columns: repeat(7, 1fr);
+    text-align: center;
+}
+
+.calendar-box .current-day {
+    color: red;
+    font-weight: bold;
+}
+
+.calendar-box .last-week {
+    color: #296086;
+    font-weight: bold;
+}
+
+.calendar-box .separator {
+    border-top: 1px solid #ccc;
+    width: 60%;
+    margin: 0 auto;
+}
+
+.calendar-box .date {
+    color: white;
+    font-size: 1.5rem;
+    font-family: 'Poppins', sans-serif;
+    text-align: center;
+}
+
+.calendar-box .phase{
+    color: white;
+    font-size: 1.2rem;
+    font-family: 'Poppins', sans-serif;
+    text-align: center;
+}
+
+#dayOfWeek,#dayOfMonth,#monthName {
+    margin: 5px;
+}
+
+#formulaire{
+    background-color: #296086;
+    font-family: "Poppins";
+    font-size: 1rem;
+    color: white;
+    border-style: none;
+    padding: 10px 20px 10px 20px;
+    margin-top: 15px;
+}
+
+/* Style du conteneur des deux boîtes (utilisation de display: flex) */
+.boxes-container {
+    display: flex;
+    justify-content: space-between; /* Espacement entre les deux boîtes */
+    padding: 25px;
+}
+/* Style du rectangle "Thème du mois" */
+.theme-box {
+    background-color: white;
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    width: 80%;
+    text-align: center;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.theme-box h2 {
+    font-size: 1.8rem;
+    font-weight: bold;
+    font-family: 'Poppins', sans-serif;
+    margin-bottom: 10px; /* Espace sous le titre */
+}
+
+.theme-box img {
+    max-width: 50%; /* Ajustez la taille de l'image selon vos besoins */
+    height: auto;
+}
+
+
+/* Style du rectangle "Gagnants" */
+.winners-box {
+    background-color: white;
+    padding: 20px;
+    margin-left: 25px;
+    border-radius: 10px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    width: 20%;
+}
+
+.winners-box h2 {
+    font-size: 18px;
+    font-weight: bold;
+    font-family: 'Poppins', sans-serif;
+    text-decoration: underline;
+}
+
+.winners-box ul {
+    list-style: none;
+    padding: 0;
+}
+
+.winners-box li {
+    font-size: 14px;
+    margin-bottom: 10px;
+    font-family: 'Poppins', sans-serif;
+}
+
+.additional-content {
+    margin-top: 20px;
+}
+/* Style du rectangle "Réseaux du gagnant" */
+.winner-networks {
+    background-color: white;
+    padding: 20px;
+    margin-top: 8%;
+    margin-left: 20px;
+    border-radius: 10px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    text-align: center;
+    width: 300px; /* Ajustez la largeur selon vos besoins */
+    margin-right: 20px; /* Espacement entre les deux rectangles */
+    float: left;
+}
+
+.winner-networks h3 {
+    font-size: 18px;
+    font-weight: bold;
+    font-family: 'Poppins', sans-serif;
+    margin-bottom: 10px;
+    text-decoration: underline;
+}
+
+.winner-networks ul {
+    list-style: none;
+    padding: 0;
+}
+
+.winner-networks li {
+    font-size: 14px;
+    margin-bottom: 10px;
+    font-family: 'Poppins', sans-serif;
+    display: flex; /* Utilisation de Flexbox pour aligner les éléments horizontalement */
+    align-items: center; /* Centre les éléments verticalement */
+}
+
+/* Ajout d'un espace entre les logos et les noms de réseaux */
+.winner-networks li img {
+    margin-right: 10px; /* Ajout d'une marge à droite de l'image */
+}
+
+/* Style du rectangle "Quelques photos du gagnant" */
+.winner-photos {
+    background-color: white;
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    text-align: center;
+    width: 1000px; /* Ajustez la largeur selon vos besoins */
+    float: left;
+    margin-left: 20px; /* Espacement entre les deux rectangles */
+}
+
+.winner-photos h3 {
+    font-size: 18px;
+    font-weight: bold;
+    font-family: 'Poppins', sans-serif;
+    text-decoration: underline;
+    margin-bottom: 10px;
+}
+
+.photo-pair {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-top: 10px;
+}
+
+.photo-pair img {
+    max-width: 300px; /* Ajustez la taille des images selon vos besoins */
+    height: auto;
+    margin: 5px;
+}
+
+/* Style for the footer */
+
+.footer-content {
+    background-color: #333; /* Choisissez votre couleur de fond préférée */
+    color: white;
+    text-align: center;
+    padding: 20px 0;
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin: 0 auto;
+    flex-wrap: wrap; /* Ajoutez cette ligne pour éviter le débordement du contenu */
+}
+
+
+/* Style for the copyright notice */
+.footer-content p {
+    margin: 0;
+}
+
+/* Style for social media icons */
+.social-icons a {
+    text-decoration: none;
+    color: white;
+    margin: 0 10px;
+}
+
+/* Style for the social media icons (images) */
+.social-icons img {
+    width: 20px; /* Ajustez la taille au besoin */
+    height: 20px;
+}

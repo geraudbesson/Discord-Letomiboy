@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Formulaire</title>
+</head>
+
+<body>
+    <h1>Formulaire</h1>
+    <form action="insertion_participation.php" method="post" enctype="multipart/form-data">
+        <label for="texte">Zone de Texte 1:</label><br>
+        <textarea id="texte" name="nomparticipant" rows="4" cols="50"></textarea><br><br>
+
+        <label for="file">Téléverser un Fichier:</label><br>
+        <input type="file" id="file" name="file"><br><br>
+
+        <label for="texte2">Zone de Texte 2:</label><br>
+        <textarea type="file" id="texte2" name="exifs" rows="4" cols="50"></textarea><br><br>
+
+        <label for="texte3">Zone de Texte 3:</label><br>
+        <textarea type="file" id="texte3" name="funfact" rows="4" cols="50"></textarea><br><br>
+
+        <input type="submit" value="Soumettre">
+    </form>
+
+</body>
+
+</html>
