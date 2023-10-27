@@ -99,12 +99,12 @@ if (isParticipationPhase) {
     infoElement.textContent = "Phase de participation en cours";
     redirectButton.textContent = "Participer";
     redirectButton.addEventListener('click', () => {
-        window.location.href = 'chemin/vers/page_participation.html';
+        window.location.href = 'participer.html';
     });
 } else {
     infoElement.textContent = "Phase de vote en cours";
     redirectButton.textContent = "Voter";
     redirectButton.addEventListener('click', () => {
-        window.location.href = 'chemin/vers/page_vote.html';
+        window.location.href = 'voter.html';
     });
 }
