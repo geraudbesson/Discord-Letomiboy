@@ -1,29 +1,62 @@
 <!DOCTYPE html>
-<html lang="en">
-
+<html>
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-
-    <title>Formulaire</title>
+    <meta name="viewport" content="width=device-width">
+    <title>Concours Créatif - Participer</title> 
+    <link rel="icon" type="image/png" href="img/Logo-Noir.png">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" type="text/css" href="styles.css">
 </head>
-
 <body>
+    <header>
+        <div id="logo">
+            <img src="img/Logo-Blanc.png" alt="Logo de votre site">
+        </div>
+        <nav>
+            <ul>
+                <li><a href="index.html">Accueil</a></li>
+                <li><a href="participer.html">Participer</a></li>
+                <li><a href="voter.html">Voter</a></li>
+            </ul>
+        </nav>
+        <div id="connexion">
+            <button><a href="admin.php">Connexion</a></button>
+        </div>
+    </header>
     <h1>Formulaire</h1>
     <form action="insertion_participation.php" method="post" enctype="multipart/form-data">
-        <label for="texte">Zone de Texte 1:</label><br>
-        <textarea id="texte" name="nomparticipant" rows="4" cols="50"></textarea><br><br>
 
-        <label for="file">Téléverser un Fichier:</label><br>
-        <input type="file" id="file" name="file"><br><br>
+        <div class="row">
+            <div class="form-floating mb-3">
+                <input id="texte" name="nomparticipant" class="form-control" id="floatingInput" placeholder="name@example.com">
+                <label for="texte" id="floatingInput">Votre pseudonyme Discord:</label>
+            </div>
+            <div class="mb-3">
+                <label for="file" class="col-sm-2 col-form-label">Téléverser un Fichier:</label>
+                <input type="file" id="file" name="file" class="form-control">
+            </div>
+        </div>
+        
+        <div class="row">
+            <div class="col">
+                <div class="form-floating mb-3">
+                    <input type="text" id="texte2" name="exifs" class="form-control" id="floatingInput" placeholder="name@example.com"></input>
+                    <label for="texte2" id="floatingInput">EXIFS:</label>
+                </div>
+            </div>
+            
+            <div class="col">
+                <div class="form-floating mb-3">
+                    <input type="text" id="texte3" name="funfact" class="form-control" id="floatingInput" placeholder="name@example.com"></input>
+                    <label for="texte3" id="floatingInput">Anecdotes et funfacts:</label>
+                </div>
+            </div>
 
-        <label for="texte2">Zone de Texte 2:</label><br>
-        <textarea type="file" id="texte2" name="exifs" rows="4" cols="50"></textarea><br><br>
-
-        <label for="texte3">Zone de Texte 3:</label><br>
-        <textarea type="file" id="texte3" name="funfact" rows="4" cols="50"></textarea><br><br>
-
-        <input type="submit" value="Soumettre">
+        <div class="col-12">
+            <input type="submit" class="btn btn-primary" value="Valider">
+        </div>
     </form>
 
 </body>

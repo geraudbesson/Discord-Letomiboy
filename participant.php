@@ -6,7 +6,6 @@ class Participant {
     private $file;
     private $exifs;
     private $funfact;
-    private $participer;
 
     public function __construct($idparticipant, $nomparticipant, $file, $exifs, $funfact) {
         $this->idparticipant = $idparticipant;
@@ -14,7 +13,6 @@ class Participant {
         $this->file = $file;
         $this->exifs = $exifs;
         $this->funfact = $funfact;
-        $this->participer = $participer;
     }
 
     // Getters and setters
@@ -56,14 +54,6 @@ class Participant {
 
     public function setFunfact($funfact) {
         $this->funfact = $funfact;
-    }
-    
-    public function getParticiper() {
-        return $this->participer;
-    }
-
-    public function setParticiper($participer) {
-        $this->participer = $participer;
     }
 }
 
