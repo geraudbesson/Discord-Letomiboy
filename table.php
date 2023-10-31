@@ -1,10 +1,10 @@
 <?php
 
-    include_once 'connexion.php';
+include_once 'connexion_bdd.php';
 
 // Requête SQL pour récupérer les données de la table "participants"
 $requete = "SELECT * FROM participants";
-$resultat = $connexion->query($requete);
+$resultat = $conn->query($requete);
 
 // Créer un tableau associatif des résultats
 $data = array();
@@ -16,5 +16,5 @@ while ($row = $resultat->fetch_assoc()) {
 echo json_encode($data);
 
 // Fermer la connexion à la base de données
-$connexion->close();
+$conn->close();
 ?>

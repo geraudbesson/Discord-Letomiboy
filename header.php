@@ -1,4 +1,3 @@
-<html>
 <!DOCTYPE html>
 <html>
 <head>
@@ -8,9 +7,11 @@
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css">
     <link rel="stylesheet" href="https://cdn.datatables.net/1.11.5/css/jquery.dataTables.min.css">
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/lightbox2/2.11.3/css/lightbox.min.css">
     <link rel="stylesheet" type="text/css" href="styles.css">
     <link rel="stylesheet" type="text/css" href="styles-admin.css">
     <link rel="stylesheet" type="text/css" href="styles-participer.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/lightbox2/2.11.3/js/lightbox.min.js"></script>
 </head>
 <body>   
     <header>
@@ -25,7 +26,7 @@
             </ul>
         </nav>
         <div id="connexion">
-            <button><a href="admin.php">Connexion</a></button>
+            <button><a href="se_connecter.php">Connexion</a></button>
         </div>
     </header>
 </body>

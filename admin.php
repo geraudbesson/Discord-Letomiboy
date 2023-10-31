@@ -1,6 +1,6 @@
 <?php
     include_once 'header.php';
-    include_once 'connexion.php';
+    include_once 'connexion_bdd.php';
 ?>
 <!DOCTYPE html>
 <html>
@@ -48,40 +48,80 @@
         </form>
     </div>
 
-    <table id="participantsTable" class="table table-striped table-bordered">
-    <thead>
-        <tr>
-            <th>Ordre d'arriver</th>
-            <th>Nom</th>
-            <th>Fichier</th>
-            <th>Exifs</th>
-            <th>Funfacts</th>
-        </tr>
-    </thead>
-    <tbody>
-        <script>
-            $(document).ready(function() {
-                $('#participantsTable').DataTable({
-                    "ajax": {
-                        "url": "table.php",
-                        "dataSrc": ""
-                    },
-                    "columns": [
-                        { "data": "idparticipant" },
-                        { "data": "nomparticipant" },
-                        { 
-                            "data": "file",
-                            "render": function(data, type, row, meta) {
-                                return '<img src="Participants/' + data + '" alt="' + row.nomparticipant + '" style="max-width: 200px; max-height: 200px;">';
-                            }
+    <div class="content">
+    <div class="rules-box">
+        <h1> Liste des Participants: vérification du suivi des règles</h1>
+        <table id="participantsTable" class="table table-striped table-bordered">
+        <thead>
+            <tr>
+                <th>Ordre d'arriver</th>
+                <th>Nom</th>
+                <th>Fichier</th>
+                <th>Exifs</th>
+                <th>Funfacts</th>
+            </tr>
+        </thead>
+        <tbody>
+            <script>
+                $(document).ready(function() {
+                    $('#participantsTable').DataTable({
+                        "ajax": {
+                            "url": "table.php",
+                            "dataSrc": ""
                         },
-                        { "data": "exifs" },
-                        { "data": "funfact" },
-                    ]
+                        "columns": [
+                            { "data": "idparticipant" },
+                            { "data": "nomparticipant" },
+                            { 
+                                "data": "file",
+                                "render": function(data, type, row, meta) {
+                                    return '<img src="Participants/' + data + '" alt="' + row.nomparticipant + '" style="max-width: 200px; max-height: 200px;">';
+                                }
+                            },
+                            { "data": "exifs" },
+                            { "data": "funfact" },
+                        ]
+                    });
                 });
-            });
-        </script>
-    </tbody>
-    </table>
+            </script>
+        </tbody>
+        </table>
+    </div>
+    
+    <div class="rules-box">
+        <h1> Liste des votants: vérification du fair-play</h1>
+        <table id="votantsTable" class="display">
+            <thead>
+                <tr>
+                    <th>ID Votant</th>
+                    <th>Nom Votant</th>
+                    <th>Choix 1 (ID Participant)</th>
+                    <th>Choix 2 (ID Participant)</th>
+                    <th>Choix 3 (ID Participant)</th>
+                </tr>
+            </thead>
+            <tbody>
+                <!-- Les données seront chargées ici -->
+                <script>
+                    $(document).ready(function() {
+                    // Initialisez le DataTable
+                    $('#votantsTable').DataTable({
+                        ajax: {
+                            url: 'table-vote.php', // Remplacez cela par l'URL de votre API ou du script serveur
+                            dataSrc: '' // La clé dans la réponse JSON contenant les données
+                        },
+                        columns: [
+                            { data: 'idvotant' },
+                            { data: 'nomvotant' },
+                            { data: 'choix1_nom' }, // Utilisez la syntaxe pour accéder aux propriétés imbriquées dans l'objet JSON
+                            { data: 'choix2_nom' },
+                            { data: 'choix3_nom' }
+                        ]
+                    });
+                    });
+                </script>
+            </tbody>
+        </table>
+    </div>
 </body>
 </html>

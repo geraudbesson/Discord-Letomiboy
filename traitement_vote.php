@@ -16,14 +16,14 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $sql = "INSERT INTO votants (nomvotant, choix1, choix2, choix3) VALUES ('$pseudo', '$choix[0]', '$choix[1]', '$choix[2]')";
 
     // Exécuter la requête
-    if ($connexion->query($sql) === TRUE) {
+    if ($conn->query($sql) === TRUE) {
         echo "Données enregistrées avec succès.";
     } else {
-        echo "Erreur lors de l'enregistrement des données : " . $connexion->error;
+        echo "Erreur lors de l'enregistrement des données : " . $conn->error;
     }
 
     // Fermer la connexion à la base de données
-    $connexion->close();
+    $conn->close();
     
     // Redirection vers index.html après 2 secondes
     header("Location: confirmation-vote.php");

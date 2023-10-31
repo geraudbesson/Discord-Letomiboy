@@ -3,12 +3,11 @@
 <head>
     <meta charset="UTF-8">
     <title>Confirmation</title>
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
 
 </head>
 <body>
     <?php
-    include_once 'connexion.php';
+    include_once 'connexion_bdd.php';
     include_once 'header.php';
     ?>
 
@@ -26,6 +25,6 @@
         echo "<div class='col'>Funfact<br> " . $funfact . "</div></div>";}
     ?>
 
-    <a href="formulaire.html">Retourner au formulaire</a>
+    <a href="index.php">Retourner à l'Accueil</a>
 </body>
 </html>
