@@ -4,25 +4,11 @@
     <meta charset="UTF-8">
     <title>Concours Créatif</title>
     <link rel="icon" type="image/png" href="img/Logo-Noir.png">
-    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
-    <link rel="stylesheet" type="text/css" href="styles.css">
 </head>
 <body>
-    <header>
-        <div id="logo">
-            <img src="img/Logo-Blanc.png" alt="Logo de votre site">
-        </div>
-        <nav>
-            <ul>
-                <li><a href="index.html">Accueil</a></li>
-                <li><a href="participer.html">Participer</a></li>
-                <li><a href="voter.html">Voter</a></li>
-            </ul>
-        </nav>
-        <div id="connexion">
-            <button><a href="admin.php">Connexion</a></button>
-        </div>
-    </header>
+    <?php
+        include_once 'header.php';
+    ?>
     <div class="content">
         <div class="rules-box">
             <h1>Règlement du concours :</h1>

@@ -20,7 +20,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     echo "Image importée et le fichier 'chemin.txt' a été créé.";
 
     // Redirection vers index.html après 2 secondes
-    header("refresh:2;url=index.html");
+    header("Location: admin.php");
 } else {
     echo "Erreur lors de l'envoi du formulaire.";
 }

@@ -1,3 +1,7 @@
+<?php
+    include_once 'header.php';
+    include_once 'connexion.php';
+?>
 <!DOCTYPE html>
 <html>
 <head>
@@ -5,10 +9,6 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Formulaire d'Image Thème</title>
     <link rel="icon" type="image/png" href="img/Logo-Noir.png">
-    <link rel="stylesheet" href="https://cdn.datatables.net/1.11.5/css/jquery.dataTables.min.css">
-    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
-    <link rel="stylesheet" type="text/css" href="styles-admin.css">
-    
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     <script src="https://cdn.datatables.net/1.11.5/js/jquery.dataTables.min.js"></script>
     
@@ -37,21 +37,6 @@
 </style>
 </head>
 <body>
-    <header>
-        <div id="logo">
-            <img src="img/Logo-Blanc.png" alt="Logo de votre site">
-        </div>
-        <nav>
-            <ul>
-                <li><a href="index.html">Accueil</a></li>
-                <li><a href="participer.html">Participer</a></li>
-                <li><a href="voter.html">Voter</a></li>
-            </ul>
-        </nav>
-        <div id="connexion">
-            <button><a href="admin.php">Connexion</a></button>
-        </div>
-    </header>
     <div class="theme-box" id="titre">
         <h2>Formulaire d'Image Thème</h2>
         <form action="traitement_formulaire.php" method="post" enctype="multipart/form-data">
@@ -62,9 +47,11 @@
             <button type="submit">Envoyer</button>
         </form>
     </div>
-    <table id="participantsTable">
+
+    <table id="participantsTable" class="table table-striped table-bordered">
     <thead>
         <tr>
+            <th>Ordre d'arriver</th>
             <th>Nom</th>
             <th>Fichier</th>
             <th>Exifs</th>
@@ -76,15 +63,16 @@
             $(document).ready(function() {
                 $('#participantsTable').DataTable({
                     "ajax": {
-                        "url": "table.php", // Chemin vers le fichier fetch_data.php
+                        "url": "table.php",
                         "dataSrc": ""
                     },
                     "columns": [
+                        { "data": "idparticipant" },
                         { "data": "nomparticipant" },
                         { 
                             "data": "file",
                             "render": function(data, type, row, meta) {
-                                return '<img src="Participants/' + data + '" alt="' + row.nomparticipants + '" style="max-width: 200px; max-height: 200px;">';
+                                return '<img src="Participants/' + data + '" alt="' + row.nomparticipant + '" style="max-width: 200px; max-height: 200px;">';
                             }
                         },
                         { "data": "exifs" },

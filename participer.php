@@ -10,22 +10,11 @@
     <link rel="stylesheet" type="text/css" href="styles-participer.css">
 </head>
 <body>
-    <header>
-        <div id="logo">
-            <img src="img/Logo-Blanc.png" alt="Logo de votre site">
-        </div>
-        <nav>
-            <ul>
-                <li><a href="index.html">Accueil</a></li>
-                <li><a href="participer.html">Participer</a></li>
-                <li><a href="voter.html">Voter</a></li>
-            </ul>
-        </nav>
-        <div id="connexion">
-            <button><a href="admin.php">Connexion</a></button>
-        </div>
-    </header>
-    <div class="content">
+    <?php
+        include_once 'header.php';
+    ?>
+    
+    <div class="content-box">
         <div class="info-box">
             <h1 style="margin-bottom: 25px;">Informations à propos du concours</h1>
             <div class="separator"></div>

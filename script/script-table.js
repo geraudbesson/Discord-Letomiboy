@@ -4,6 +4,7 @@ $(document).ready(function() {
     $('#participantsTable').DataTable({
         "ajax": "../table.php", // Chemin vers le script PHP qui récupère les données de la base de données
         "columns": [
+            { "data": "idparticipant" }, // Colonne pour le nom du participant
             { "data": "nomparticipant" }, // Colonne pour le nom du participant
             { "data": "file" }, // Colonne pour le nom du fichier
             { "data": "exifs" }, // Colonne pour les exifs
