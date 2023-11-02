@@ -1,7 +1,15 @@
+
 <?php
-    include_once 'header.php';
-    include_once 'connexion_bdd.php';
-?>
+        include_once 'header.php';
+        include_once '../auth-discord/connexion_bdd.php';
+        
+        session_start();
+
+        if($_SESSION['userData']['role']!='admin'){
+            header("location: http://localhost/site/front/index.php?error=not_admin");
+            exit();
+        }
+    ?>
 <!DOCTYPE html>
 <html>
 <head>
@@ -123,5 +131,10 @@
             </tbody>
         </table>
     </div>
+    </div>
+    
+    <?php
+        include('footer.php');
+    ?>
 </body>
 </html>

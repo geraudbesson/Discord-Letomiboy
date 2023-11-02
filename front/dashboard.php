@@ -4,13 +4,15 @@
 session_start();
 
 if(!$_SESSION['logged_in']){
-    header('Location: index.php');
+    header('Location: ../init-oauth.php');
     exit();
 }
 
 extract($_SESSION['userData']);
 
-$avatar_url = "https://cdn.discordapp.com/avatar/$discord_id/$avatar.jpg";
+// $avatar_url = "https://cdn.discordapp.com/avatar/$discord_id/$avatar.jpg";
+
+$avatar_url = "https://cdn.discordapp.com/avatars/$discord_id/$avatar.jpg";
 
 ?>
 
@@ -29,5 +31,9 @@ $avatar_url = "https://cdn.discordapp.com/avatar/$discord_id/$avatar.jpg";
         <a href="logout.php" class="mt-5 text-grey-300">Logout</a>
         </div>
     </div>
+    
+    <?php
+        include('footer.php');
+    ?>
 </body>
 </html>

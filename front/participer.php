@@ -1,3 +1,16 @@
+<?php
+    include_once 'header.php';
+    include_once '../connexion_bdd.php';
+    
+    session_start();
+    if(!$_SESSION['logged_in']){
+        header('Location: error.php');
+        exit();
+    }else if($_SESSION['userData']['role'] != 'concours' && $_SESSION['userData']['role'] != 'admin') {
+        header("location: index.php?error=not_concours");
+        exit();
+    }
+?>
 <!DOCTYPE html>
 <html>
 <head>
@@ -7,10 +20,6 @@
     <link rel="icon" type="image/png" href="img/Logo-Noir.png">
 </head>
 <body>
-    <?php
-        include_once 'header.php';
-        include_once 'connexion_bdd_discord.php';
-        ?>
     
     <div class="content-box">
         <div class="info-box">
@@ -31,8 +40,8 @@
 
                 <div class="row">
                     <div class="form-floating mb-3">
-                        <input type="hidden" id="texte" name="nomparticipant" value="<?php echo htmlspecialchars($discord_username); ?>">
-                        <!-- <label for="texte">Votre pseudonyme Discord:</label> -->
+                        <input id="texte" name="nomparticipant">
+                        <label for="texte">Votre pseudonyme Discord:</label>
                     </div>
                     <div class="mb-3">
                         <label for="file" class="col-sm-2 col-form-label">Téléverser un Fichier:</label>
@@ -71,6 +80,10 @@
             </form>
         </div>
     </div>
+    
+    <?php
+        include('footer.php');
+    ?>
 </body>
 
 </html>

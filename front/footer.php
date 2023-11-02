@@ -1,3 +1,4 @@
+
 <!DOCTYPE html>
 <html>
 <head>
@@ -13,23 +14,16 @@
     <link rel="stylesheet" type="text/css" href="styles-participer.css">
     <script src="https://cdnjs.cloudflare.com/ajax/libs/lightbox2/2.11.3/js/lightbox.min.js"></script>
 </head>
-<body>   
-    <header>
-        <div id="logo">
-            <img src="img/Logo-Blanc.png" alt="Logo de votre site">
-        </div>
-        <nav>
-            <ul>
-                <li><a href="index.php">Accueil</a></li>
-                <li><a href="participer.php">Participer</a></li>
-                <li><a href="voter.php">Voter</a></li>
-            </ul>
-        </nav>
-        <div id="connexion">
-            <button><a href="se_connecter.php">Connexion</a></button>
-            <button><a href="https://discord.com/api/oauth2/authorize?client_id=1169333837633957888&redirect_uri=http%3A%2F%2Flocalhost%2FSite%2Fprocess-oauth.php&response_type=code&scope=identify%20guilds">Connexion discord</a></button>
-            <img class="h-12 w-12 rounded-full mr-6" src="https://cdn.discordapp.com/avatars/'.$userData['discord_id'].'/'.$userData['discord_avatar'].'.jpg"/>
-        </div>
-    </header>
+<body>  
+    
 </body>
-</html>
+</html><footer>
+        <div class="footer-content">
+            <p>&copy; 2023 Votre Nom / Nom de votre entreprise<br></p>
+            <div class="social-icons">
+                <a href="#"><img src="img/facebook.webp" ></a>
+                <a href="#"><img src="img/twitter.png" ></a>
+                <a href="#"><img src="img/instagram.png" ></a>
+            </div>
+        </div>
+    </footer>

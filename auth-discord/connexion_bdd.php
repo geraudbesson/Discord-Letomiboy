@@ -1,9 +1,18 @@
 <?php
 
 $host = "localhost";
-$user = "devuser";
-$pass = "mysqlpassword";
+$user = "root";
+$pass = "";
 $db='concoursdiscord';
+
+// Établir la connexion
+$conn = mysqli_connect($host, $user, $pass, $db);
+
+  
+// Vérifier la connexion
+if ($conn->connect_error) {
+    die("Une erreur s'est produite, merci de réessayer : " . $conn->connect_error);
+}
 
 try {
   $pdo = new PDO("mysql:host=$host;dbname=$db", $user, $pass);
@@ -15,7 +24,7 @@ catch(PDOException $e){
 }
 
 function addUserToDatabase($pdo,$discord_id,$discord_avatar,$discord_username){
-    $sql = "INSERT INTO utilisateurs (discord_id,discord_avatar,discord_username) VALUES (:discord_id,:discord_avatar,:discord_username)";
+    $sql = "INSERT INTO users (discord_id,discord_avatar,discord_username) VALUES (:discord_id,:discord_avatar,:discord_username)";
     try {
         $stmt = $pdo->prepare($sql);
         $stmt->execute([
@@ -30,7 +39,7 @@ function addUserToDatabase($pdo,$discord_id,$discord_avatar,$discord_username){
 }
 
 function getUserFromDatabase($pdo,$discord_id){
-    $sql = "SELECT * FROM utilisateurs WHERE discord_id=:discord_id";
+    $sql = "SELECT * FROM users WHERE discord_id=:discord_id";
     try {
         $stmt = $pdo->prepare($sql);
         $stmt->execute([
@@ -44,7 +53,7 @@ function getUserFromDatabase($pdo,$discord_id){
 }
 
 function getAllUsersFromDatabase($pdo){
-    $sql = "SELECT * FROM utilisateurs";
+    $sql = "SELECT * FROM users";
     try {
         $stmt = $pdo->prepare($sql);
         $stmt->execute();

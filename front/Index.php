@@ -3,11 +3,11 @@
 <head>
     <meta charset="UTF-8">
     <title>Concours Créatif</title>
-    <link rel="icon" type="image/png" href="img/Logo-Noir.png">
+    <link rel="icon" type="image/png" href="../img/Logo-Noir.png">
 </head>
 <body>
     <?php
-        include('header.php');
+        include_once 'header.php';
     ?>
 
     <div class="content">
@@ -64,7 +64,7 @@
         </div>
     </div>
 
-    <script src="script/script-calendar.js"></script>
+    <script src="../script/script-calendar.js"></script>
 
 
     </div>
@@ -72,7 +72,7 @@
         <div class="theme-box">
             <h2>Thème du mois :</h2>
             <img id="imageImportee" src="img-thème/Theme_10_2023.jpg" alt="Image Importée">
-            <script src="script/script-theme.js"></script>
+            <script src="../script/script-theme.js"></script>
         </div>
     
         <div class="winners-box">
@@ -92,33 +92,26 @@
         <div class="winner-networks">
             <h3>Réseaux du gagnant :</h3>
             <ul>
-                <li><img src="img/instagram.png" width="20" height="20"> Instagram</li>
-                <li><img src="img/facebook.webp" width="20" height="20"> Facebook</li>
-                <li><img src="img/twitter.png" width="20" height="20"> Twitter</li>
+                <li><img src="../img/instagram.png" width="20" height="20"> Instagram</li>
+                <li><img src="../img/facebook.webp" width="20" height="20"> Facebook</li>
+                <li><img src="../img/twitter.png" width="20" height="20"> Twitter</li>
             </ul>            
         </div>
         <div class="winner-photos">
             <h3>Quelques photos du gagnant :</h3>
             <div class="photo-pair">
-                <img src="img/test1.jpeg" alt="Photo 1">
-                <img src="img/test2.jpeg" alt="Photo 2">
+                <img src="../img/test1.jpeg" alt="Photo 1">
+                <img src="../img/test2.jpeg" alt="Photo 2">
             </div>
             <div class="photo-pair">
-                <img src="img/test3.jpeg" alt="Photo 3">
-                <img src="img/test4.jpeg" alt="Photo 4">
+                <img src="../img/test3.jpeg" alt="Photo 3">
+                <img src="../img/test4.jpeg" alt="Photo 4">
             </div>
         </div>
     </div>
-    <footer>
-        <div class="footer-content">
-            <p>&copy; 2023 Votre Nom / Nom de votre entreprise<br></p>
-            <div class="social-icons">
-                <a href="#"><img src="img/facebook.webp" ></a>
-                <a href="#"><img src="img/twitter.png" ></a>
-                <a href="#"><img src="img/instagram.png" ></a>
-            </div>
-        </div>
-    </footer>
     
+    <?php
+        include('footer.php');
+    ?>
 </body>
 </html>
