@@ -7,8 +7,9 @@
 </head>
 <body>
     <?php
-        include_once 'header.php';
+        include('header.php');
     ?>
+
     <div class="content">
         <div class="rules-box">
             <h1>Règlement du concours :</h1>

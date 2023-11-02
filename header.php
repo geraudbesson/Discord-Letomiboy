@@ -27,6 +27,8 @@
         </nav>
         <div id="connexion">
             <button><a href="se_connecter.php">Connexion</a></button>
+            <button><a href="https://discord.com/api/oauth2/authorize?client_id=1169333837633957888&redirect_uri=http%3A%2F%2Flocalhost%2FSite%2Fprocess-oauth.php&response_type=code&scope=identify%20guilds">Connexion discord</a></button>
+            <img class="h-12 w-12 rounded-full mr-6" src="https://cdn.discordapp.com/avatars/'.$userData['discord_id'].'/'.$userData['discord_avatar'].'.jpg"/>
         </div>
     </header>
 </body>

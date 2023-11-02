@@ -2,6 +2,7 @@
 
     include_once 'connexion_bdd.php';
     include_once 'header.php';
+    include('connexion_bdd_discord.php');
 
     // Récupération des données du formulaire
     if ($_SERVER["REQUEST_METHOD"] == "POST") {

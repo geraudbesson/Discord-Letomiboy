@@ -9,7 +9,8 @@
 <body>
     <?php
         include_once 'header.php';
-    ?>
+        include_once 'connexion_bdd_discord.php';
+        ?>
     
     <div class="content-box">
         <div class="info-box">
@@ -30,8 +31,8 @@
 
                 <div class="row">
                     <div class="form-floating mb-3">
-                        <input id="texte" name="nomparticipant" class="form-control is-invalid" id="validationTextarea" placeholder="Required example textarea" required>
-                        <label for="texte">Votre pseudonyme Discord:</label>
+                        <input type="hidden" id="texte" name="nomparticipant" value="<?php echo htmlspecialchars($discord_username); ?>">
+                        <!-- <label for="texte">Votre pseudonyme Discord:</label> -->
                     </div>
                     <div class="mb-3">
                         <label for="file" class="col-sm-2 col-form-label">Téléverser un Fichier:</label>
