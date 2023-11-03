@@ -1,7 +1,6 @@
 <?php
 
     include_once 'header.php';
-session_start();
 
 if(!$_SESSION['logged_in']){
     header('Location: ../auth-discord/init-oauth.php');

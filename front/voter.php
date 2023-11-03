@@ -18,7 +18,7 @@
 
             <div class="row">
                 <?php
-                $sql = "SELECT * FROM participants";
+                $sql = "SELECT * FROM participants_photo";
                 $photo_participants = $conn->query($sql);
 
                 while ($row = mysqli_fetch_assoc($photo_participants)) {

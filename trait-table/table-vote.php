@@ -8,9 +8,9 @@
     participants2.nomparticipant AS choix2_nom, 
     participants3.nomparticipant AS choix3_nom
     FROM votants
-    LEFT JOIN participants AS participants1 ON votants.choix1 = participants1.idparticipant
-    LEFT JOIN participants AS participants2 ON votants.choix2 = participants2.idparticipant
-    LEFT JOIN participants AS participants3 ON votants.choix3 = participants3.idparticipant;";
+    LEFT JOIN participants_photo AS participants1 ON votants.choix1 = participants1.idparticipant
+    LEFT JOIN participants_photo AS participants2 ON votants.choix2 = participants2.idparticipant
+    LEFT JOIN participants_photo AS participants3 ON votants.choix3 = participants3.idparticipant;";
     $resultat = $conn->query($requete);
 
     // Créer un tableau associatif des résultats

@@ -33,7 +33,7 @@
             </div>
             <div class="form-box">
                 <h1>Soumettre votre participation</h1>
-                <form action="../trait-table/traitement_participation.php" method="post" enctype="multipart/form-data">
+                <form action="../trait-table/traitement_participation_retouche.php" method="post" enctype="multipart/form-data">
 
                     <div class="row">
                         <div class="form-floating mb-3">
@@ -43,21 +43,6 @@
                         <div class="mb-3">
                             <label for="file" class="col-sm-2 col-form-label">Téléverser un Fichier:</label>
                             <input type="file" id="file" name="file" class="form-control" required>
-                        </div>
-                    </div>
-                        
-                    <div class="row">
-                        <div class="col">
-                            <div class="form-floating mb-3">
-                                <input type="text" id="texte2" name="exifs"class="form-control is-invalid" id="validationTextarea" placeholder="Required example textarea" required></input>
-                                <label for="texte2" id="floatingInput">EXIFS:</label>
-                            </div>
-                        </div>
-                        <div class="col">
-                            <div class="form-floating mb-3">
-                                <input type="text" id="texte3" name="funfact" class="form-control" id="floatingInput"></input>
-                                <label for="texte3" id="floatingInput">Anecdotes et funfacts:</label>
-                            </div>
                         </div>
                     </div>
 

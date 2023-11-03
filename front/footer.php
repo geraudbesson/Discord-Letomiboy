@@ -21,9 +21,9 @@
         <div class="footer-content">
             <p>&copy; 2023 Votre Nom / Nom de votre entreprise<br></p>
             <div class="social-icons">
-                <a href="#"><img src="img/facebook.webp" ></a>
-                <a href="#"><img src="img/twitter.png" ></a>
-                <a href="#"><img src="img/instagram.png" ></a>
+                <a href="#"><img src="../img/facebook.webp" ></a>
+                <a href="#"><img src="../img/twitter.png" ></a>
+                <a href="#"><img src="../img/instagram.png" ></a>
             </div>
         </div>
     </footer>

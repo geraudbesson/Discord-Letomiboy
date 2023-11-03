@@ -2,8 +2,6 @@
 <?php
         include_once 'header.php';
         include_once '../auth-discord/connexion_bdd.php';
-        
-        session_start();
 
         if($_SESSION['userData']['role']!='admin'){
             header("location: index.php?error=not_admin");
@@ -45,15 +43,79 @@
 </style>
 </head>
 <body>
-    <div class="theme-box" id="titre">
-        <h2>Formulaire d'Image Thème</h2>
-        <form action="../trait-table/traitement_theme.php" method="post" enctype="multipart/form-data">
-            <label for="image">Choisir un fichier :</label>
-            <input type="file" id="image" name="image" accept="image/*" onchange="afficherApercu(event)" required><br><br>
-            <img id="imageApercu" src="#" alt="Aperçu de l'image" style="max-width: 200px; max-height: 200px;">
-            <br><br>
-            <button type="submit">Envoyer</button>
-        </form>
+    
+<div class="tab-container">
+        <button class="tab-button" onclick="openTab('tab1')">Onglet 1</button>
+        <button class="tab-button" onclick="openTab('tab2')">Onglet 2</button>
+
+        <div id="tab1" class="tab-content">
+            Contenu de l'onglet 1
+        </div>
+
+        <div id="tab2" class="tab-content">
+            Contenu de l'onglet 2
+        </div>
+    </div>
+
+    <script src="script-admin.js"></script>
+
+
+
+
+
+
+
+    <div class="container">
+        <div class="theme-bo">
+            <h2>Formulaire d'Image Thème</h2>
+            <form action="../trait-table/traitement_theme.php" method="post" enctype="multipart/form-data">
+                
+                <div class="mb-3">
+                    <label for="file" class="col-sm-2 col-form-label">Téléverser un Fichier:</label>
+                    <input type="file" id="file" name="file" class="form-control" required>
+                </div>
+                <div class="mb-3">
+                    <label for="text" class="col-sm-2 col-form-label">Nom du thème:</label>
+                    <input type="text" id="text" name="text" class="form-control" required>
+                </div>
+                <button type="submit" class="btn btn-info">Envoyer</button>
+            </form>
+        </div>
+        <div class="raw-box">
+            <h2>Image raw à récupérer</h2>
+                <form action="../trait-table/traitement_theme.php" method="post" enctype="multipart/form-data">
+                    <div class="mb-3">
+                        <label for="file" class="col-sm-2 col-form-label">Téléverser un Fichier:</label>
+                        <input type="file" id="file" name="file" class="form-control" required>
+                    </div>
+                    <div class="mb-3">
+                        <label for="text" class="col-sm-2 col-form-label">Nom du fichier:</label>
+                        <input type="text" id="text" name="text" class="form-control" required>
+                    </div>
+                    <button type="submit" class="btn btn-info">Envoyer</button>
+                </form>
+        </div>
+        <div class="form-concours-photo-check">
+            <div class="form-check form-switch">
+                <p>Ouverture formulaire participants</p>
+            <input class="form-check-input" type="checkbox" id="flexSwitchCheckChecked" checked>
+            <label class="form-check-label" for="flexSwitchCheckChecked">On</label>
+            </div>
+        </div>
+        <div class="form-concours-retouche-check">
+            <div class="form-check form-switch">
+                <p>Ouverture formulaire participants</p>
+            <input class="form-check-input" type="checkbox" id="flexSwitchCheckChecked" checked>
+            <label class="form-check-label" for="flexSwitchCheckChecked">On</label>
+            </div>
+        </div>
+        <div class="form-vote-retouche-check">
+            <div class="form-check form-switch">
+                <p>Ouverture formulaire participants</p>
+            <input class="form-check-input" type="checkbox" id="flexSwitchCheckChecked" checked>
+            <label class="form-check-label" for="flexSwitchCheckChecked">On</label>
+            </div>
+        </div>
     </div>
 
     <div class="content">

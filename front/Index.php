@@ -32,9 +32,6 @@
             </p>
             <p class="astérisque">*Le serveur est muni d'un système d'experience. Chaque message apporte des points d'experience comme un RPG. Et au niveau 3 vous gagnez le rôle pour participer aux concours photo.</p>
         </div>
-
-        <!-- Calendrier latérale droit -->
-        
         <div class="calendar-box">
             <div class="calendrier">
                 <div class="navigation">
@@ -46,33 +43,46 @@
                 <div class="days" id="days"></div>
                 <div classe="currentDay" id="currentDay"></div>
             </div>
-            
             <div class="separator"></div>
-            
-            <div class="date actuelle">
-                <div class="date">
-                    <div id="dayOfWeek"></div>
-                    <div id="dayOfMonth"></div>
-                    <div id="monthName"></div>
+                <div class="date actuelle">
+                    <div class="date">
+                        <div id="dayOfWeek"></div>
+                        <div id="dayOfMonth"></div>
+                        <div id="monthName"></div>
+                    </div>
                 </div>
-            </div>
-
             <div class="separator"></div>
-            
-                <div class="phase" id="info"></div>
-                <button id="formulaire"></button>
+            <div class="phase" id="info"></div>
+            <button id="formulaire"></button>
         </div>
     </div>
-
     <script src="../script/script-calendar.js"></script>
-
 
     </div>
     <div class="boxes-container">
         <div class="theme-box">
             <h2>Thème du mois :</h2>
-            <img id="imageImportee" src="../img/img-thème/Theme_10_2023.jpg" alt="Image Importée">
-            <script src="../script/script-theme.js"></script>
+
+            <?php
+            include_once '../auth-discord/connexion_bdd.php';
+                $sql = "SELECT * FROM theme ORDER BY idtheme DESC LIMIT 1";
+                $imgtheme = $conn->query($sql);
+
+                if ($imgtheme->num_rows > 0) {
+                    $row = $imgtheme->fetch_assoc();
+                    $nomFichier = $row["nomimg"];
+                    $nomTheme = $row["theme"];
+                    $idtheme = $row["idtheme"];
+                    $cheminImage = "../img/img-theme/" . $nomFichier;
+                    ?>
+                    <img src="<?php echo $cheminImage; ?>" alt="<?php echo $nomFichier; ?>"><br>
+                    <p><?php echo $nomTheme; ?></p>
+                    
+            <?php
+            } else {
+                echo "Petit soucis sur le thème, on règle ça rapidement.";
+            }
+            ?>
         </div>
     
         <div class="winners-box">

@@ -3,7 +3,7 @@
     include_once '../auth-discord/connexion_bdd.php';
 
     // Requête SQL pour récupérer les données de la table "participants"
-    $requete = "SELECT * FROM participants";
+    $requete = "SELECT * FROM participants_photo";
     $resultat = $conn->query($requete);
 
     // Créer un tableau associatif des résultats

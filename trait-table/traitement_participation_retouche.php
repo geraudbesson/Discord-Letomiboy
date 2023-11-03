@@ -6,16 +6,14 @@
     if ($_SERVER["REQUEST_METHOD"] == "POST") {
         $nomparticipant = mysqli_real_escape_string($conn, $_POST['nomparticipant']);
         $file = mysqli_real_escape_string($conn, $_FILES['file']['name']);
-        $exifs = mysqli_real_escape_string($conn, $_POST['exifs']);
-        $funfact = mysqli_real_escape_string($conn, $_POST['funfact']);
     
         $nomFichier = $_FILES["file"]["name"];
         $cheminTemporaire = $_FILES["file"]["tmp_name"];
         
-        $cheminFinal = "../img/Participants/" . $file;
+        $cheminFinal = "../img/Participants-retouche/" . $file;
         move_uploaded_file($cheminTemporaire, $cheminFinal);
 
-        $requete = "INSERT INTO participants_photo (nomparticipant, file, exifs, funfact) VALUES ('$nomparticipant', '$file', '$exifs', '$funfact')";
+        $requete = "INSERT INTO participants_retouche (nomparticipant, file) VALUES ('$nomparticipant', '$file')";
 
         if ($conn->query($requete) === TRUE) {
         } else {
