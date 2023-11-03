@@ -71,7 +71,7 @@
     <div class="boxes-container">
         <div class="theme-box">
             <h2>Thème du mois :</h2>
-            <img id="imageImportee" src="img-thème/Theme_10_2023.jpg" alt="Image Importée">
+            <img id="imageImportee" src="../img/img-thème/Theme_10_2023.jpg" alt="Image Importée">
             <script src="../script/script-theme.js"></script>
         </div>
     

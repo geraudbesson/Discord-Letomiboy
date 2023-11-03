@@ -10,7 +10,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     }
 
     // Connexion à la base de données
-    include_once 'connexion_bdd.php';
+    include_once '../auth-discord/connexion_bdd.php';
 
     // Construire la requête SQL avec les valeurs directement incluses
     $sql = "INSERT INTO votants (nomvotant, choix1, choix2, choix3) VALUES ('$pseudo', '$choix[0]', '$choix[1]', '$choix[2]')";
@@ -26,7 +26,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $conn->close();
     
     // Redirection vers index.html après 2 secondes
-    header("Location: front/confirmation-vote.php");
+    header("Location: ../front/front-secondaire/confirmation-vote.php");
 } else {
     echo "Erreur lors de la soumission du formulaire.";
 }

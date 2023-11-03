@@ -1,10 +1,10 @@
 <?php
     include_once 'header.php';
-    include_once '../connexion_bdd.php';
+    include_once '../auth-discord/connexion_bdd.php';
     
     session_start();
     if(!$_SESSION['logged_in']){
-        header('Location: error.php');
+        header('Location: front-secondaire/error.php');
         exit();
     }else if($_SESSION['userData']['role'] != 'concours' && $_SESSION['userData']['role'] != 'admin') {
         header("location: index.php?error=not_concours");
@@ -36,7 +36,7 @@
         </div>
         <div class="form-box">
             <h1>Soumettre votre participation</h1>
-            <form action="insertion_participation.php" method="post" enctype="multipart/form-data">
+            <form action="../trait-table/traitement_participation.php" method="post" enctype="multipart/form-data">
 
                 <div class="row">
                     <div class="form-floating mb-3">

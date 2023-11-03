@@ -1,6 +1,6 @@
 <?php
 
-    include_once 'connexion_bdd.php';
+    include_once '../auth-discord/connexion_bdd.php';
 
     // Requête SQL pour récupérer les données de la table "participants"
     $requete = "SELECT votants.idvotant, votants.nomvotant, 

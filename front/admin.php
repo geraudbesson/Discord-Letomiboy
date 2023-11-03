@@ -6,7 +6,7 @@
         session_start();
 
         if($_SESSION['userData']['role']!='admin'){
-            header("location: http://localhost/site/front/index.php?error=not_admin");
+            header("location: index.php?error=not_admin");
             exit();
         }
     ?>
@@ -47,7 +47,7 @@
 <body>
     <div class="theme-box" id="titre">
         <h2>Formulaire d'Image Thème</h2>
-        <form action="traitement_formulaire.php" method="post" enctype="multipart/form-data">
+        <form action="../trait-table/traitement_theme.php" method="post" enctype="multipart/form-data">
             <label for="image">Choisir un fichier :</label>
             <input type="file" id="image" name="image" accept="image/*" onchange="afficherApercu(event)" required><br><br>
             <img id="imageApercu" src="#" alt="Aperçu de l'image" style="max-width: 200px; max-height: 200px;">
@@ -74,7 +74,7 @@
                 $(document).ready(function() {
                     $('#participantsTable').DataTable({
                         "ajax": {
-                            "url": "table.php",
+                            "url": "../trait-table/table-participant.php",
                             "dataSrc": ""
                         },
                         "columns": [
@@ -83,7 +83,7 @@
                             { 
                                 "data": "file",
                                 "render": function(data, type, row, meta) {
-                                    return '<img src="Participants/' + data + '" alt="' + row.nomparticipant + '" style="max-width: 200px; max-height: 200px;">';
+                                    return '<img src="../img/Participants/' + data + '" alt="' + row.nomparticipant + '" style="max-width: 200px; max-height: 200px;">';
                                 }
                             },
                             { "data": "exifs" },
@@ -115,7 +115,7 @@
                     // Initialisez le DataTable
                     $('#votantsTable').DataTable({
                         ajax: {
-                            url: 'table-vote.php', // Remplacez cela par l'URL de votre API ou du script serveur
+                            url: '../trait-table/table-vote.php', // Remplacez cela par l'URL de votre API ou du script serveur
                             dataSrc: '' // La clé dans la réponse JSON contenant les données
                         },
                         columns: [
@@ -131,7 +131,7 @@
             </tbody>
         </table>
     </div>
-    </div>
+    </div>  
     
     <?php
         include('footer.php');

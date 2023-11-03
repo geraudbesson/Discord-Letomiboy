@@ -1,6 +1,6 @@
 <?php
-    include_once '../connexion_bdd.php';
-    include_once 'header.php';
+    include_once '../../auth-discord/connexion_bdd.php';
+    include_once '../header.php';
 ?>
 
 <h1>Votre vote a été enregistrée !</h1>
@@ -15,4 +15,4 @@
     echo "<div class='col'>Exifs<br> " . $exifs . "</div>";
     echo "<div class='col'>Funfact<br> " . $funfact . "</div></div>";}
 ?>
-<a href="..index.php" class="btn btn-success">Retour à l'accueil</a>
+<a href="../index.php" class="btn btn-success">Retour à l'accueil</a>

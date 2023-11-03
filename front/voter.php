@@ -1,17 +1,17 @@
 
 <?php
     include_once 'header.php';
-    include_once '../connexion_bdd.php';
+    include_once '../auth-discord/connexion_bdd.php';
 ?>
 <!DOCTYPE html>
 <html>
 <head>
     <meta charset="UTF-8">
     <title>Concours Créatif - Voter</title>
-    <link rel="icon" type="image/png" href="img/Logo-Noir.png">
+    <link rel="icon" type="image/png" href="../img/Logo-Noir.png">
 </head>
 <body><div class="container">
-        <form action="../traitement_vote.php" method="post" onsubmit="return validerFormulaire();">
+        <form action="../trait-table/traitement_vote.php" method="post" onsubmit="return validerFormulaire();">
             <h1>Choisissez votre/vos photo(s) favorites</h1><br>
             <label for="pseudo">Pseudo :</label>
             <input type="text" id="pseudo" name="pseudo" required><br><br>
@@ -24,7 +24,7 @@
                 while ($row = mysqli_fetch_assoc($photo_participants)) {
                     $nomFichier = $row["file"];
                     $idparticipant = $row["idparticipant"];
-                    $cheminImage = "../Participants/" . $nomFichier;
+                    $cheminImage = "../img/Participants/" . $nomFichier;
                     ?>
                     <div class="col-md-4 mb-4">
                         <div class="card">

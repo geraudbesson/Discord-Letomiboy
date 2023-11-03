@@ -10,7 +10,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $cheminTemporaire = $_FILES["image"]["tmp_name"];
 
     // Déplacer le fichier vers le dossier img-thème
-    $cheminFinal = "img-thème/" . $nomFichier;
+    $cheminFinal = "../img/img-thème/" . $nomFichier;
     move_uploaded_file($cheminTemporaire, $cheminFinal);
 
     echo "Image uploadée avec succès !<br>";
@@ -20,7 +20,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     echo "Image importée et le fichier 'chemin.txt' a été créé.";
 
     // Redirection vers index.html après 2 secondes
-    header("Location: admin.php");
+    header("Location: ../front/admin.php");
 } else {
     echo "Erreur lors de l'envoi du formulaire.";
 }

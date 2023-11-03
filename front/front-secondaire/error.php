@@ -7,9 +7,9 @@
 </head>
 <body>
     <?php
-        include('header.php');
+        include('../header.php');
     ?>
     <h1>Page indisponible aux visiteurs</h1>
-    <a class="btn btn-primary" href="http://localhost/site/init-oauth.php" role="button">Se connecter</a>
+    <a class="btn btn-primary" href="http://localhost/site/auth-discord/init-oauth.php" role="button">Se connecter</a>
 </body>
 </html>
