@@ -2,6 +2,8 @@
     ini_set('display_errors', 1);
     ini_set('display_startup_errors', 1);
     error_reporting(E_ALL);
+    session_start();
+    include 'connexion_bdd.php';
 
     if(!isset($_GET['code'])){
         echo 'no code';
@@ -55,11 +57,17 @@
 
     curl_setopt($ch, CURLOPT_SSL_VERIFYHOST, 0);
     curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, 0);
-
+    
     $result = curl_exec($ch);
 
-    $result = json_decode($result, true);
+    $userData = json_decode($result,true);
 
+    // usgiubrbubrbuqrezeirucqizvhnzieoqmzefvoiqznemoifqzvnoqzienviouqzionoiuzeoiuqiurermoiqeruqruoiruqzuerqz
+    $user_data_from_db = getUserFromDatabase($pdo,$userData['id']);
+
+    if(!$user_data_from_db){
+        addUserToDatabase($pdo,$userData['id'],$userData['username'],$userData['avatar']);
+    }
     $guildObject = getGuildObject($access_token, '404790598831177730');
     $guild_roles = $guildObject['roles'];
     // see if roles has the correct role_id within the array
@@ -71,25 +79,20 @@
         $role = 'concours';
     }
 
-    session_start();
-
     $_SESSION['logged_in'] = true;
     $_SESSION['userData'] = [
-        'name'=>$result['username'],
-        'discord_id'=>$result['id'],
-        'avatar'=>$result['avatar'],
+        'discord_id'=>$userData['id'],
+        'name'=>$userData['username'],
+        'avatar'=>$userData['avatar'],
         'role'=>$role,
     ];
 
-    //IF YOU ARE HAVING ISSUES, ADD AN EXIT() HERE, this will stop the script early, and show any errors!
-    //exit();
-
     if($role=='admin'){
-        header("location: http://localhost/site/front/admin.php");
+        header("location: http://localhost/site/front/index.php");
     }else if($role == 'admin' || $role == 'concours'){
-        header("location: http://localhost/site/front/participer.php");
+        header("location: http://localhost/site/front/index.php");
     }else{
-        header("location: http://localhost/site/front/dashboard.php");
+        header("location: http://localhost/site/front/index.php");
     }
 
     exit();

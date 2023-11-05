@@ -1,9 +1,9 @@
 <?php
 
 $host = "localhost";
-$user = "root";
-$pass = "";
-$db='concoursdiscord';
+$user = "ConcoursAdmin";
+$pass = "SmashPassDiscord";
+$db = "concoursdiscord";
 
 // Établir la connexion
 $conn = mysqli_connect($host, $user, $pass, $db);
@@ -23,14 +23,14 @@ catch(PDOException $e){
   echo "Connection failed: " . $e->getMessage();
 }
 
-function addUserToDatabase($pdo,$discord_id,$discord_avatar,$discord_username){
-    $sql = "INSERT INTO users (discord_id,discord_avatar,discord_username) VALUES (:discord_id,:discord_avatar,:discord_username)";
+function addUserToDatabase($pdo,$discord_id,$discord_username,$discord_avatar){
+    $sql = "INSERT INTO users (discord_id,discord_username,discord_avatar) VALUES (:discord_id,:discord_username,:discord_avatar)";
     try {
         $stmt = $pdo->prepare($sql);
         $stmt->execute([
             'discord_id'=>$discord_id,
-            'discord_avatar'=>$discord_avatar,
             'discord_username'=>$discord_username,
+            'discord_avatar'=>$discord_avatar,
         ]);
         echo 'inserted successfully';
     } catch (Exception $e) {

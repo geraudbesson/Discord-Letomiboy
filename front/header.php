@@ -8,7 +8,7 @@
     <meta charset="UTF-8">
     <title>Concours Créatif</title>
     <link rel="icon" type="image/png" href="http://localhost/img/Logo-Noir.png">
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet">
     <link rel="stylesheet" href="https://cdn.datatables.net/1.11.5/css/jquery.dataTables.min.css">
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/lightbox2/2.11.3/css/lightbox.min.css">
@@ -18,7 +18,7 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/lightbox2/2.11.3/js/lightbox.min.js"></script>
 </head>
 <body>   
-    <header>
+    <header class="fixed-top">
         <div id="logo">
             <a href="http://localhost/site/front/index.php"><img src="http://localhost/site/img/Logo-Blanc.png" alt="Logo de votre site"></a>
         </div>
@@ -48,7 +48,7 @@
         ?>
 
         <!-- Affichez l'avatar de l'utilisateur avec un lien vers dashboard.php -->
-        <a href="dashboard.php">
+        <a href="http://localhost/site/front/dashboard.php">
             <img class="avatar-discord" src="<?php echo $avatar_url; ?>" alt="Avatar Discord" style="width: 50px; height: 50px; border-radius: 50%;">
         </a>
 
@@ -67,6 +67,7 @@
             
         </div>
     </header>
+    <div class="header-fix"></div>
     
 </body>
 </html>

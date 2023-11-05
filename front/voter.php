@@ -2,6 +2,7 @@
 <?php
     include_once 'header.php';
     include_once '../auth-discord/connexion_bdd.php';
+    extract($_SESSION['userData']);
 ?>
 <!DOCTYPE html>
 <html>
@@ -13,17 +14,18 @@
 <body><div class="container">
         <form action="../trait-table/traitement_vote.php" method="post" onsubmit="return validerFormulaire();">
             <h1>Choisissez votre/vos photo(s) favorites</h1><br>
-            <label for="pseudo">Pseudo :</label>
-            <input type="text" id="pseudo" name="pseudo" required><br><br>
+            <input type="hidden" id="pseudo" name="pseudo" value="<?php echo $name?>" ><br><br>
 
             <div class="row">
                 <?php
-                $sql = "SELECT * FROM participants_photo";
+                $sql = "SELECT * FROM participants_photo p INNER JOIN users u ON u.idusers = p.idusers WHERE participer = 1";
                 $photo_participants = $conn->query($sql);
+                
 
                 while ($row = mysqli_fetch_assoc($photo_participants)) {
                     $nomFichier = $row["file"];
                     $idparticipant = $row["idparticipant"];
+                    $discord_username = $row["discord_username"];
                     $cheminImage = "../img/Participants/" . $nomFichier;
                     ?>
                     <div class="col-md-4 mb-4">
@@ -32,8 +34,9 @@
                                 <img src="<?php echo $cheminImage; ?>" alt="<?php echo $nomFichier; ?>" class="card-img-top">
                             </a>
                             <div class="card-body">
-                                <input type="checkbox" id="participant_<?php echo $idparticipant; ?>" name="choix[]" value="<?php echo $idparticipant; ?>">
-                                <label for="participant_<?php echo $idparticipant; ?>" class="card-title"><?php echo "Option ", $idparticipant; ?></label>
+                                <input type="hidden" name="participants[<?php echo $idparticipant; ?>][idparticipant]" value="<?php echo $idparticipant; ?>">
+                                <input type="text" name="participants[<?php echo $idparticipant; ?>][note]">
+                                <label for="participant_<?php echo $idparticipant; ?>" class="card-title"><?php echo "Option ", $discord_username; ?></label>
                             </div>
                         </div>
                     </div>

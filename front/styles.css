@@ -51,10 +51,14 @@ nav a {
     color: black;
 }
 
+.header-fix {
+    margin-bottom: 70px;
+}
 /* Style du contenu */
 .content {
     background-color: #f0f0f0; /* Couleur de fond du rectangle */
     padding: 20px;
+    /* margin-top: 70px; */
     justify-content: space-between;
     display: flex;
 }
@@ -361,27 +365,17 @@ nav a {
     margin: 20px 0; /* Marge au-dessus et en dessous du séparateur */
 }
 
-
-.tab-container {
+.dashboard-box{
     display: flex;
-    flex-direction: column;
-    max-width: 300px;
-    margin: 0 auto;
+    justify-content: space-around;
 }
 
-.tab-button {
-    background-color: #007bff;
-    color: #fff;
-    border: none;
-    padding: 10px 20px;
-    cursor: pointer;
-    margin-bottom: 10px;
+.titre-dashboard{
+    text-align: center;
 }
 
-.tab-content {
-    display: none;
-}
-
-.tab-content.active {
-    display: block;
+.avatar-dashboard{
+    display: flex;
+    justify-content: center;
+    align-items: center;
 }
