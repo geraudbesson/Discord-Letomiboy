@@ -15,9 +15,7 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/lightbox2/2.11.3/js/lightbox.min.js"></script>
 </head>
 <body>  
-    
-</body>
-</html><footer>
+    <footer>
         <div class="footer-content">
             <p>&copy; 2023 Votre Nom / Nom de votre entreprise<br></p>
             <div class="social-icons">
@@ -27,3 +25,5 @@
             </div>
         </div>
     </footer>
+</body>
+</html>

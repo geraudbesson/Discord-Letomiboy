@@ -86,16 +86,39 @@
         </div>
     
         <div class="winners-box">
-            <h2>Gagnant du concours précédent:<br><br><br></h2>
-            <ul>
-                <li>Mois : Pseudo 1<br><br><br></li>
-            </ul>
-            <h2>Les 3 derniers Gagnants :<br><br><br></h2>
-            <ul>
-                <li>Mois : Pseudo 1</li>
-                <li>Mois : Pseudo 2</li>
-                <li>Mois : Pseudo 3</li>
-            </ul>
+            <h3>Vainqueurs des anciens concours</h3>
+            <?php
+                $sql ="WITH ClassementCTE AS (
+                        SELECT *, ROW_NUMBER() OVER (PARTITION BY idtheme ORDER BY note DESC) AS Classement 
+                        FROM participants_photo
+                    ) 
+                    SELECT c.*, u.discord_username, u.discord_id, u.discord_avatar, t.theme 
+                    FROM ClassementCTE c 
+                    INNER JOIN users u ON u.idusers = c.idusers 
+                    INNER JOIN theme t ON t.idtheme = c.idtheme 
+                    WHERE Classement = 1";
+
+                $result = $conn->query($sql);
+
+                while ($row = $result->fetch_assoc()) {
+                    $nomFichier = $row["file"];
+                    $discord_username = $row['discord_username'];
+                    $theme = $row['theme'];
+                    $cheminImage = "../img/Participants/" . $nomFichier;
+                    $idtheme = $row['idtheme']; // Ajout de cette ligne pour récupérer la valeur de idtheme
+
+                    // Afficher discord_username et idtheme
+                    echo "<img src=\"https://cdn.discordapp.com/avatars/{$row['discord_id']}/{$row['discord_avatar']}.jpg\" style=\"width: 35px; height: auto; border-radius:50%;\">
+                    $discord_username<br> $theme <br> ";?>
+                    <img src="<?php echo $cheminImage; ?>" alt="<?php echo $nomFichier; ?>" style="width: 2 50px; height: auto;"><?php
+
+                    // Bouton renvoyant vers archivetheme.php?idtheme
+                    echo "<br><a href='archivetheme.php?idtheme=$idtheme'><button>Voir Thème</button></a>";
+
+                    echo "<br><br>";
+                }
+            ?>
+
         </div>
     </div>
     <div class="additional-content">
