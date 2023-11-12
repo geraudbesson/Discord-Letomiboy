@@ -4,10 +4,10 @@
 <head>
     <meta charset="UTF-8">
     <title>Concours Créatif</title>
-    <link rel="icon" type="image/png" href="../img/Logo-Noir.png">
-    <link rel="stylesheet" type="text/css" href="/site/front/styles.css">
-    <link rel="stylesheet" type="text/css" href="/site/front/styles-admin.css">
-    <link rel="stylesheet" type="text/css" href="/site/front/styles-participer.css">
+    <link rel="icon" type="image/png" href="img/Logo-Noir.png">
+    <link rel="stylesheet" type="text/css" href="/front/styles.css">
+    <link rel="stylesheet" type="text/css" href="/front/styles-admin.css">
+    <link rel="stylesheet" type="text/css" href="/front/styles-participer.css">
 </head>
 <body>   
     <header class="fixed-top">
@@ -23,7 +23,7 @@
         </nav>
         <div id="connexion">
         <!-- Affichez l'avatar de l'utilisateur avec un lien vers dashboard.php -->
-        <a href="http://localhost/site/front/dashboard.php"><img class="avatar-discord" src="<?php echo $avatar_url; ?>" alt="Avatar Discord" style="width: 50px; height: 50px; border-radius: 50%;"></a>
+        <button><a href="http://localhost/site/auth-discord/init-oauth.php">Se connecter à Discord</a></button>
         </div>
     </header>
     <div class="header-fix"></div>
