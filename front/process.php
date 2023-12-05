@@ -2,7 +2,14 @@
 require_once 'model.php';
 $db = new Database();
 
-if (isset($_POST['action']) && $_POST['action'] === 'fetch'){
+// Création des participation au concours photo
+if (isset($_POST['action']) && $_POST['action'] === 'create'){
+        extract($_POST);
+        $db->create((int)$idusers, $file, $exifs, $funfact, (int)$idtheme);
+        echo 'perfect';
+    }
+
+if (isset($_POST['action']) && $_POST['action'] === 'fetchCP'){
     $outputCP = '';
 
     if ($db->countBillsCP() > 0) {
@@ -30,15 +37,15 @@ if (isset($_POST['action']) && $_POST['action'] === 'fetch'){
                 <td>$billCP->exifs</td>
                 <td>$billCP->funfact</td>
                 <td>
-                <a href=\"#\" class=\"text-info me-2 infoBtn\" title=\"Voir info personne\" data-id=\"$billCP->idparticipant\">
-                    <i class=\"fas fa-info-circle\"></i>
-                </a>
-                <a href=\"#\" class=\"text-info me-2 infoBtn\" title=\"Modifier\" data-id=\"$billCP->idparticipant\">
-                    <i class=\"fas fa-edit\" data-bs-toggle='modal' data-bs-target='#updateModal'></i>
-                </a>
-                <a href=\"#\" class=\"text-danger me-2 deleteBtn\" title=\"Delete participation\" data-id=\"$billCP->idparticipant\">
-                    <i class=\"fas fa-trash\"></i>
-                </a>
+                    <a href=\"#\" class=\"text-info me-2 infoBtn\" title=\"Voir info personne\" data-id=\"$billCP->idparticipant\">
+                        <i class=\"fas fa-info-circle\"></i>
+                    </a>
+                    <a href=\"#\" class=\"text-info me-2 infoBtn\" title=\"Modifier\" data-id=\"$billCP->idparticipant\">
+                        <i class=\"fas fa-edit\" data-bs-toggle='modal' data-bs-target='#updateModal'></i>
+                    </a>
+                    <a href=\"#\" class=\"text-danger me-2 deleteBtn\" title=\"Delete participation\" data-id=\"$billCP->idparticipant\">
+                        <i class=\"fas fa-trash\"></i>
+                    </a>
                 </td>
             </tr>
             ";
@@ -49,6 +56,31 @@ if (isset($_POST['action']) && $_POST['action'] === 'fetch'){
         echo "<h3>Aucune participation pour le moment</h3>";
     }
 }
+
+// // Info sur les auteurs des participations
+// if (isset($_POST['informationId'])){
+//     $informationId = (int)$_POST['informationId'];
+//     echo json_encode($db->getSingleBillCP($informationId));
+// };
+
+// Supprimer participation
+if (isset($_POST['deletionId'])){
+    $deletionId = (int)$_POST['deletionId'];
+    echo $db->deleteCP($deletionId);
+};
+
+// Reset des participations (il manque encore à update des notes)
+if (isset($_POST['resetData'])){
+    $resetResult = $db->reset();
+
+    if ($resetResult) {
+        // Réinitialisation réussie
+        echo 'success';
+    } else {
+        // Échec de la réinitialisation
+        echo 'error';
+    }
+};
 
 if (isset($_POST['action']) && $_POST['action'] === 'fetchRCP'){
     $outputRCP = '';
