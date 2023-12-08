@@ -1,3 +1,85 @@
+<?php
+        include_once 'header.php';
+        include_once '../auth-discord/connexion_bdd.php';
+
+        if (!isset($_SESSION['logged_in']) || !$_SESSION['logged_in']) {
+            echo '<script>
+                alert("Erreur : Vous n\'êtes pas connecté.");
+                window.location.href = "http://localhost/site/auth-discord/init-oauth.php";
+            </script>';
+            exit();
+        }
+        if (!isset($_SESSION['userData']) || !is_array($_SESSION['userData'])) {
+            echo '<script>
+                    alert("Erreur : Données utilisateur indisponibles.");
+                    window.location.href = "index.php";
+                </script>';
+            exit();
+        }
+
+        extract($_SESSION['userData']);
+
+        function checkFormValue($expectedValue, $conn) {
+            $sql_select = "SELECT formphoto FROM formulaire WHERE formphoto = $expectedValue";
+            $result = $conn->query($sql_select);
+
+            if ($result === FALSE) {
+                echo '<script>
+                    alert("Le formulaire est indisponible pour le moment.");
+                    window.location.href = "dashboard.php";
+                </script>';
+                return false;
+            } else {
+                if ($result->num_rows > 0) {
+                    $row = $result->fetch_assoc();
+                    $currentFormValue = $row["formphoto"];
+                    return $currentFormValue == $expectedValue;
+                } else {
+                    echo '<script>
+                        alert("Formulaire indisponible");
+                        window.location.href = "dashboard.php";
+                    </script>';
+                    return false;
+                }
+            }
+        }
+
+        function checkParticiperValue($name, $conn) {
+            $sql_select_participer = "SELECT participer FROM participants_photo p INNER JOIN users u ON u.idusers = p.idusers WHERE u.discord_username = '$name' AND participer = 1";
+            $result_participer = $conn->query($sql_select_participer);
+
+            if ($result_participer === FALSE) {
+                echo "Erreur dans la requête : " . $conn->error;
+                return false;
+            } else {
+                if ($result_participer->num_rows > 0) {
+                    echo '<script>
+                            if(confirm("Tu as déjà participé ! Cliques sur OK pour aller sur ton dashboard. Cliques sur Annuler pour revenir à l\'accueil")) {
+                                window.location.href = "dashboard.php";
+                            } else {
+                                window.location.href = "index.php";
+                            }
+                        </script>';
+                    return true;
+                } else {
+                    return false;
+                }
+            }
+        }
+
+        // Vérifier la condition du formulaire et de la participation
+        if (
+            ($_SESSION['userData']['role'] == 'concours' || $_SESSION['userData']['role'] == 'admin') && checkFormValue(1, $conn) && !checkParticiperValue($name, $conn)
+        ) {
+        } else {
+            echo '<script>
+                $(document).ready(function(){
+                    $("#myModal").modal();
+                });
+            </script>';
+            exit();
+        }
+    ?>
 <!DOCTYPE html>
 <html>
 <head>
@@ -8,43 +90,9 @@
 </head>
 <body>
     <div class="container-form">
-        <?php
-        include_once 'header.php';
-        include_once '../auth-discord/connexion_bdd.php';
-        
-        if(!$_SESSION['logged_in']){
-            header('Location: front-secondaire/error.php');
-            exit();
-        }else if($_SESSION['userData']['role'] != 'concours' && $_SESSION['userData']['role'] != 'admin') {
-            header("location: index.php?error=not_concours");
-            exit();
-        }
-        
-        extract($_SESSION['userData']);
-
-        // Requête SQL pour sélectionner toutes les valeurs de la colonne "participer" est égale à 1 où "nomparticipant" est égal à '$name'
-        $sql = "SELECT * FROM participants_photo p INNER JOIN users u ON u.idusers = p.idusers WHERE discord_username = '$name' AND participer = 1";
-
-        // Exécutez la requête SQL
-        $result = mysqli_query($conn, $sql);
-
-        // Vérifiez si la requête a été exécutée avec succès
-        if ($result) {
-            // Vérifiez si la valeur 1 apparaît au moins une fois
-            if (mysqli_num_rows($result) > 0) {
-                // Au moins une occurrence de 1 a été trouvée, redirigez vers erreur.php
-                header("Location: dashboard.php");
-                exit(); // Assurez-vous de terminer le script après la redirection
-            }
-
-            // Si la valeur 1 n'apparaît pas, continuez le reste de votre script ici
-        } else {
-            // Affichez l'erreur de requête SQL en cas d'échec
-            echo "Erreur de requête SQL : " . mysqli_error($conn);
-        }
-        ?>
-            <h2>Hey <?php echo $name?>, Tu peux soumettre ta participation via le formulaire ci-dessous.</h2>
-            <p>Veuille à bien lire le règlement</p>
+    
+    <h2>Hey <?php echo $name?>, Tu peux soumettre ta participation via le formulaire ci-dessous.</h2>
+    <p>Veuille à bien lire le règlement</p>
         <div class="content-box">
             <div class="info-box">
                 <h1 style="margin-bottom: 25px;">Informations à propos du concours</h1>

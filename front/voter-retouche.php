@@ -21,7 +21,7 @@
         extract($_SESSION['userData']);
 
         function checkFormValue($expectedValue, $conn) {
-            $sql_select = "SELECT form FROM formulaire WHERE form = $expectedValue";
+            $sql_select = "SELECT formretouche FROM formulaire WHERE formretouche = $expectedValue";
             $result = $conn->query($sql_select);
 
             if ($result === FALSE) {
@@ -33,7 +33,7 @@
             } else {
                 if ($result->num_rows > 0) {
                     $row = $result->fetch_assoc();
-                    $currentFormValue = $row["form"];
+                    $currentFormValue = $row["formretouche"];
                     return $currentFormValue == $expectedValue;
                 } else {
                     echo '<script>
@@ -46,7 +46,7 @@
         }
 
         function checkVoterValue($name, $conn) {
-            $sql_select_voter = "SELECT * FROM votants v INNER JOIN users u ON u.idusers = v.idusers WHERE u.discord_username = '$name' AND voter = 1";
+            $sql_select_voter = "SELECT * FROM votants_retouche v INNER JOIN users u ON u.idusers = v.idusers WHERE u.discord_username = '$name' AND voter = 1";
             $result_voter = $conn->query($sql_select_voter);
 
             if ($result_voter === FALSE) {

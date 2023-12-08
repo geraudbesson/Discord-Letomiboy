@@ -11,6 +11,7 @@
 
     <div class="container mt-5">
         <h2>Concours Photo</h2>
+        <div class="separator"></div><br>
         <div class="row">
             <div class="col-md-6">
                 <div class="card">

@@ -7,21 +7,8 @@ if(!$_SESSION['logged_in']){
     header('Location: ../auth-discord/init-oauth.php');
     exit();
 }
-
 extract($_SESSION['userData']);
-
 $avatar_url = "https://cdn.discordapp.com/avatars/$discord_id/$avatar.jpg";
-
-$sql = "SELECT * FROM participants_photo p INNER JOIN users u ON u.idusers = p.idusers WHERE discord_username = '$name' ORDER BY date DESC LIMIT 1;";
-    $imgparticipant = $conn->query($sql);
-    if ($imgparticipant->num_rows > 0) {
-    $row = $imgparticipant->fetch_assoc();
-    $nomFichier = $row["file"];
-    $exifs = $row["exifs"];
-    $funfact = $row["funfact"];
-    $idparticipant = $row["idparticipant"];
-    $cheminImage = "../img/Participants/" . $nomFichier;
-    }
 ?>
 <!DOCTYPE html>
 <html>
@@ -79,6 +66,37 @@ $sql = "SELECT * FROM participants_photo p INNER JOIN users u ON u.idusers = p.i
         padding: 16px;
 
     }
+    /* Style pour les boutons carrés */
+    label {
+        display: inline-block;
+        margin-right: 10px;
+        margin-bottom: 10px;
+        cursor: pointer;
+    }
+
+    input[type="radio"] {
+        display: none; /* Cache l'input radio par défaut */
+    }
+
+    label {
+        display: inline-block;
+        margin-right: 10px;
+        margin-bottom: 10px;
+        cursor: pointer;
+        width: 30px; /* Largeur fixe pour les boutons carrés */
+        height: 30px; /* Hauteur fixe pour les boutons carrés */
+        text-align: center;
+        line-height: 30px; /* Pour centrer le texte verticalement */
+        border: 1px solid #007bff;
+        border-radius: 5px;
+        font-weight: bold;
+        font-size: 16px;
+    }
+
+    input[type="radio"]:checked + label {
+        background-color: #007bff;
+        color: #fff;
+    }
 </style>
 </head>
 <body>
@@ -99,7 +117,7 @@ $sql = "SELECT * FROM participants_photo p INNER JOIN users u ON u.idusers = p.i
                 <li class="nav-item" role="Concours Retouche">
                     <button class="nav-link" id="contact-tab" data-bs-toggle="tab" data-bs-target="#contact" type="button" role="tab" aria-controls="contact" aria-selected="false">Archives</button>
                 </li>
-                <li class="nav-item nav-fill" role="Archive">
+                <li class="nav-item" role="Archive">
                     <a class="nav-link" id="déco-tab" href="front-secondaire/logout.php" role="tab" aria-controls="contact" aria-selected="false">Se déconnecter</a>
                 </li>
             </ul>
@@ -130,6 +148,7 @@ $sql = "SELECT * FROM participants_photo p INNER JOIN users u ON u.idusers = p.i
                                 $theme = $row["theme"];
                                 $exifs = $row["exifs"];
                                 $funfact = $row["funfact"];
+                                $idparticipant = $row["idparticipant"];
                                 $cheminImage = "../img/Participants/" . $nomFichier;
                                 ?>
                                 <div class="card-body">
@@ -206,31 +225,70 @@ $sql = "SELECT * FROM participants_photo p INNER JOIN users u ON u.idusers = p.i
                     </div>
                 </div>
                 <div class="tab-pane fade" id="concoursphoto" role="tabpanel" aria-labelledby="concoursphoto-tab">
-                    <?php
-                    $sql = "SELECT * FROM participants_photo p INNER JOIN users u ON u.idusers = p.idusers INNER JOIN theme t on t.idtheme = p.idtheme WHERE discord_username = '$name' AND participer = 1 LIMIT 1;";
-                    $particip = $conn->query($sql);
-                        if ($particip->num_rows > 0) {
-                            $row = $particip->fetch_assoc();
-                            $theme = $row["theme"];
+                    <div class="row">
+                        <?php
+                        $sql = "SELECT * FROM participants_photo p INNER JOIN users u ON u.idusers = p.idusers WHERE participer = 1";
+                        $photo_participants = $conn->query($sql);
+                        while ($row = mysqli_fetch_assoc($photo_participants)) {
+                            $nomFichier = $row["file"];
+                            $idparticipant = $row["idparticipant"];
+                            $discord_username = $row["discord_username"];
+                            $cheminImage = "../img/Participants/" . $nomFichier;
                             ?>
-                            <table class="table table-striped table-bordered">
-                                <thead>
-                                    <tr>
-                                        <th>Votre participation</th>
-                                        <th>Exifs</th>
-                                        <th>Funfacts</th>
-                                    </tr>
-                                </thead>
-                                <tbody>
-                                    <td style="width: 250px;"><img src="<?php echo $cheminImage; ?>" alt="<?php echo $nomFichier; ?>" style="width: 250px; height: auto;"></td>
-                                    <td style="width: 250px;"><?php echo $exifs; ?></td>
-                                    <td style="width: 250px;"><?php echo $funfact; ?></td>
-                                </tbody>
-                            </table>
-                        <?php } else {
-                            echo '<h3> Vous n\'avez pas encore participer</h3> 
-                            <a href="participer.php" class="btn btn-primary">Je veux participer</a>';
-                            }?>
+                            <div class="col-md-4 mb-4">
+                                <div class="card">
+                                    <a href="<?php echo $cheminImage; ?>" data-lightbox="images" data-title="Option <?php echo $idparticipant; ?>">
+                                        <img src="<?php echo $cheminImage; ?>" alt="<?php echo $nomFichier; ?>" class="card-img-top">
+                                    </a>
+                                    <div class="card-body">
+                                        <?php if ($discord_username == $name) : ?>
+                                            <fieldset disabled>
+                                                <input type="text"
+                                                    id="disabledTextInput"
+                                                    class="form-control"
+                                                    placeholder="<?php echo $name ?>">
+                                            </fieldset>
+                                        <?php else : ?>
+                                            <input type="hidden"
+                                                name="participants[<?php echo $idparticipant; ?>][idparticipant]"
+                                                value="<?php echo $idparticipant; ?>">
+
+                                            <?php
+                                            // Récupérer la note attribuée pour ce participant
+                                            $sqlNote = "SELECT note FROM votants WHERE idparticipant = '$idparticipant' AND discord_username = '$name'";
+                                            $resultNote = $conn->query($sqlNote);
+
+                                            if ($resultNote !== false && $resultNote->num_rows > 0) {
+                                                // Il y a une note attribuée
+                                                $note = $resultNote->fetch_assoc()['note'];
+                                            } else {
+                                                // Aucune note attribuée, initialiser à 0 par défaut
+                                                $note = 0;
+                                            }
+                                            ?>
+
+                                            <?php
+                                            if ($note >= 1 && $note <= 10) {
+                                                $lettre = ['A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J'][$note - 1];
+                                            } else {
+                                                // Gérer le cas où la note n'est pas dans la plage valide
+                                                $lettre = ''; // ou une valeur par défaut appropriée
+                                            }
+                                            echo "ID Participant: $idparticipant, Note: $note, Lettre: $lettre<br>";
+                                            ?>
+                                            <input type="radio"
+                                                name="participants[<?php echo $idparticipant; ?>][note]"
+                                                id="note_<?php echo $idparticipant . '_' . $lettre; ?>"
+                                                value="<?php echo $note; ?>"
+                                                required>
+                                            <label for="note_<?php echo $idparticipant . '_' . $lettre; ?>"><?php echo $lettre; ?></label>
+                                            
+                                        <?php endif; ?>
+                                    </div>
+                                </div>
+                            </div>
+                        <?php } ?>
+                    </div>
                 </div>
                 <div class="tab-pane fade" id="profile" role="tabpanel" aria-labelledby="profile-tab">
                     <h2>Work in progress</h2>

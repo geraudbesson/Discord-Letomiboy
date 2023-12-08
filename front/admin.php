@@ -24,14 +24,17 @@
 </head>
 <body>
     <section class="container py-5">
-        <ul class="nav nav-tabs" id="myTab" role="tablist">
+        <ul class="nav nav-tabs nav-fill" id="myTab" role="tablist">
             <h1 class="fs-4 text-center lead text-primary">
             <img src="<?php echo $avatar_url?>" style="width: 42px; height: 42px; border-radius: 50%;" />Hey <?php echo $name?></h1>
+            <li class="nav-item" role="dashboard">
+                <button class="nav-link active" id="dashboard-tab" data-bs-toggle="tab" data-bs-target="#dashboard" type="button" role="tab" aria-controls="dashboard" aria-selected="true">Dashboard</button> 
+            </li>
             <li class="nav-item" role="concoursphoto">
-                <button class="nav-link active" id="concoursphoto-tab" data-bs-toggle="tab" data-bs-target="#concoursphoto" type="button" role="tab" aria-controls="true" aria-selected="true">Concours photo</button> 
+                <button class="nav-link" id="concoursphoto-tab" data-bs-toggle="tab" data-bs-target="#concoursphoto" type="button" role="tab" aria-controls="concoursphoto" aria-selected="false">Concours photo</button> 
             </li>
             <li class="nav-item" role="presentation">
-                <button class="nav-link" id="resultatphoto-tab" data-bs-toggle="tab" data-bs-target="#resultatphoto" type="button" role="tab" aria-controls="false" aria-selected="false">Resultat Concours Photo</button>
+                <button class="nav-link" id="resultatphoto-tab" data-bs-toggle="tab" data-bs-target="#resultatphoto" type="button" role="tab" aria-controls="resultatphoto" aria-selected="false">Resultat Concours Photo</button>
             </li>
             <li class="nav-item" role="presentation">
                 <a class="nav-link" id="déco-tab" href="front-secondaire/logout.php" role="tab" aria-controls="déconnexion" aria-selected="false">Se déconnecter</a>
@@ -39,7 +42,117 @@
         </ul>
 
             <div class="tab-content" id="myTabContent">
-                <div class="tab-pane fade show active" id="concoursphoto" role="tabpanel" aria-labelledby="concoursphoto-tab">
+                <div class="tab-pane fade show active" id="dashboard" role="tabpanel" aria-labelledby="dashboard-tab">
+                    <div class="mb-3">
+                        <form action="admin.php" method="post">
+                            <label>
+                                <h3>Concours photo</h3>
+                                <?php
+                                    $sql_select = "SELECT formphoto FROM formulaire";
+                                    $result = $conn->query($sql_select);
+            
+                                    if ($result === FALSE) {
+                                        echo "Erreur dans la requête : " . $conn->error;
+                                    } else {
+                                        if ($result->num_rows > 0) {
+                                            $row = $result->fetch_assoc();
+                                            $currentFormValue = $row["formphoto"];
+            
+                                            if ($currentFormValue == 1) {
+                                                echo "Participation activer";
+                                            } elseif ($currentFormValue == 2) {
+                                                echo "Vote activer";
+                                            } elseif ($currentFormValue == 3) {
+                                                echo "FERMÉ";
+                                            } else {
+                                                echo "La valeur de 'form' n'est pas reconnue.";
+                                            }
+                                        }
+                                    }
+                                ?>
+                                <select class="form-select" name="formphoto">
+                                    <option selected>Choix du formulaire</option>
+                                    <option value="1">Formulaire de participation</option>
+                                    <option value="2">Formulaire de vote</option>
+                                    <option value="3">Formulaires fermés</option>
+                                </select>
+                            </label>
+                            <input class="btn btn-info" type="submit" value="Valider">
+                        </form>
+                    <?php
+                        if ($_SERVER["REQUEST_METHOD"] == "POST") {
+                            $formphoto = isset($_POST['formphoto']) && $_POST['formphoto'] !== '' ? $_POST['formphoto'] : null;
+                        
+                            if ($formphoto !== null) {
+                                $sql = "UPDATE formulaire SET formphoto = $formphoto";
+                                if ($conn->query($sql) === TRUE) {
+                                    echo "Formulaire mis à jour avec succès!";
+                                } else {
+                                    echo "Erreur lors de la mise à jour du formulaire : " . $conn->error;
+                                }
+                            } else {
+                                echo "Aucune option sélectionnée.";
+                            }
+                        }
+                    ?>
+                    </div>
+
+                    <div class="mb-3">
+                        <form action="admin.php" method="post">
+                            <label>
+                                <h3>Concours retouche</h3>
+                                <?php
+                                    $sql_select = "SELECT formretouche FROM formulaire";
+                                    $result = $conn->query($sql_select);
+
+                                    if ($result === FALSE) {
+                                        echo "Erreur dans la requête : " . $conn->error;
+                                    } else {
+                                        if ($result->num_rows > 0) {
+                                            $row = $result->fetch_assoc();
+                                            $currentFormValue = $row["formretouche"];
+
+                                            if ($currentFormValue == 1) {
+                                                echo "Participation activer";
+                                            } elseif ($currentFormValue == 2) {
+                                                echo "Vote activer";
+                                            } elseif ($currentFormValue == 3) {
+                                                echo "FERMÉ";
+                                            } else {
+                                                echo "La valeur de 'form' n'est pas reconnue.";
+                                            }
+                                        }
+                                    }
+                                ?>
+                                <select class="form-select" name="formretouche">
+                                    <option selected>Choix du formulaire</option>
+                                    <option value="1">Formulaire de participation</option>
+                                    <option value="2">Formulaire de vote</option>
+                                    <option value="3">Formulaires fermés</option>
+                                </select>
+                            </label>
+                            <input class="btn btn-info" type="submit" value="Valider">
+                        </form>
+                    <?php
+                        if ($_SERVER["REQUEST_METHOD"] == "POST") {
+                            $formretouche = isset($_POST['formretouche']) && $_POST['formretouche'] !== '' ? $_POST['formretouche'] : null;
+                        
+                            if ($formretouche !== null) {
+                                $sql = "UPDATE formulaire SET formretouche = $formretouche";
+                                if ($conn->query($sql) === TRUE) {
+                                    echo "Formulaire mis à jour avec succès!";
+                                } else {
+                                    echo "Erreur lors de la mise à jour du formulaire : " . $conn->error;
+                                }
+                            } else {
+                                echo "Aucune option sélectionnée.";
+                            }
+                        }
+
+                    ?>
+                    </div>
+                </div>
+                <div class="tab-pane fade" id="concoursphoto" role="tabpanel" aria-labelledby="concoursphoto-tab">
                     <div class="dropdown-divider border-warning"></div>
                     <div class="row">
                         <div class="col-md-6">
@@ -149,8 +262,15 @@
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
     <script src="process.js"></script>
 
-    <?php
-        include('footer.php');
-    ?>
+    <footer>
+        <div class="footer-content">
+            <p>&copy; 2023 Votre Nom / Nom de votre entreprise<br></p>
+            <div class="social-icons">
+                <a href="#"><img src="../img/facebook.webp" ></a>
+                <a href="#"><img src="../img/twitter.png" ></a>
+                <a href="#"><img src="../img/instagram.png" ></a>
+            </div>
+        </div>
+    </footer>
 </body>
 </html>
