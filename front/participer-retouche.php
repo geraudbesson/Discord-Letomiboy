@@ -45,7 +45,7 @@
         }
 
         function checkParticiperValue($name, $conn) {
-            $sql_select_participer = "SELECT participer FROM participants_retouche p INNER JOIN users u ON u.idusers = p.idusers WHERE u.discord_username = '$name' AND participer = 1";
+            $sql_select_participer = "SELECT participer FROM participants p INNER JOIN users u ON u.idusers = p.idusers WHERE u.discord_username = '$name' AND participer = 1 AND formulaire = 2";
             $result_participer = $conn->query($sql_select_participer);
 
             if ($result_participer === FALSE) {
@@ -106,7 +106,7 @@
             </div>
             <div class="form-box">
                 <h1>Soumettre votre participation</h1>
-                <form action="../trait-table/traitement_participation.php" method="post" enctype="multipart/form-data">
+                <form action="../trait-table/traitement_participation_retouche.php" method="post" enctype="multipart/form-data">
                     <?php
                     extract($_SESSION['userData']);
 
@@ -144,20 +144,8 @@
                     </div>
                         
                     <div class="row">
-                        <div class="col">
-                            <div class="form-floating mb-3">
-                                <input type="text" id="texte2" name="exifs"class="form-control is-invalid" id="validationTextarea" placeholder="Required example textarea" required></input>
-                                <label for="texte2" id="floatingInput">EXIFS:</label>
-                            </div>
-                        </div>
-                        <div class="col">
-                            <div class="form-floating mb-3">
-                                <input type="text" id="texte3" name="funfact" class="form-control" id="floatingInput"></input>
-                                <label for="texte3" id="floatingInput">Anecdotes et funfacts:</label>
-                            </div>
-                        </div>
                         <?php 
-                            $sql = "SELECT * FROM theme ORDER BY idtheme DESC LIMIT 1;";
+                            $sql = "SELECT * FROM theme WHERE concours = 2 ORDER BY idtheme DESC LIMIT 1;";
                             $result = mysqli_query($conn, $sql);
                             $row = mysqli_fetch_assoc($result);
                             $lastThemeId = $row['idtheme'];

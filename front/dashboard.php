@@ -109,13 +109,16 @@ $avatar_url = "https://cdn.discordapp.com/avatars/$discord_id/$avatar.jpg";
                     <?php echo $name ?></button>
                 </li>
                 <li class="nav-item" role="concoursphoto">
-                    <button class="nav-link" id="concoursphoto-tab" data-bs-toggle="tab" data-bs-target="#concoursphoto" type="button" role="tab" aria-controls="home" aria-selected="false">Concours Photo</button> 
+                    <button class="nav-link" id="concoursphoto-tab" data-bs-toggle="tab" data-bs-target="#concoursphoto" type="button" role="tab" aria-controls="home" aria-selected="false">Notes attribués concours photo</button> 
                 </li>
                 <li class="nav-item" role="Concours photo">
-                    <button class="nav-link" id="profile-tab" data-bs-toggle="tab" data-bs-target="#profile" type="button" role="tab" aria-controls="profile" aria-selected="false">Concours retouche</button>
+                    <button class="nav-link" id="profile-tab" data-bs-toggle="tab" data-bs-target="#profile" type="button" role="tab" aria-controls="profile" aria-selected="false">Notes attribués concours retouche</button>
                 </li>
                 <li class="nav-item" role="Concours Retouche">
                     <button class="nav-link" id="contact-tab" data-bs-toggle="tab" data-bs-target="#contact" type="button" role="tab" aria-controls="contact" aria-selected="false">Archives</button>
+                </li>
+                <li class="nav-item" role="direction">
+                    <a class="nav-link" href="discord://channels/404790598831177730/404790599485751297">Retour au serveur</a>
                 </li>
                 <li class="nav-item" role="Archive">
                     <a class="nav-link" id="déco-tab" href="front-secondaire/logout.php" role="tab" aria-controls="contact" aria-selected="false">Se déconnecter</a>
@@ -140,11 +143,11 @@ $avatar_url = "https://cdn.discordapp.com/avatars/$discord_id/$avatar.jpg";
                     <div class="concours-part">
                         <div class="moitier-gauche">
                             <?php
-                            $sql = "SELECT * FROM participants_photo p INNER JOIN users u ON u.idusers = p.idusers INNER JOIN theme t on t.idtheme = p.idtheme WHERE discord_username = '$name' AND participer = 1 LIMIT 1;";
+                            $sql = "SELECT * FROM participants p INNER JOIN users u ON u.idusers = p.idusers INNER JOIN theme t on t.idtheme = p.idtheme WHERE discord_username = '$name' AND formulaire = 1 AND participer = 1 LIMIT 1;";
                             $particip = $conn->query($sql);
                             if ($particip->num_rows > 0) {
                                 $row = $particip->fetch_assoc();
-                                $nomFichier = $row["file"];
+                                $nomFichier = $row["img"];
                                 $theme = $row["theme"];
                                 $exifs = $row["exifs"];
                                 $funfact = $row["funfact"];
@@ -186,48 +189,46 @@ $avatar_url = "https://cdn.discordapp.com/avatars/$discord_id/$avatar.jpg";
                                         </div>
                                     </div>';
                                     }?>
-                            </div>
+                        </div>
                         <div class="moitier-droite">
-                            <?php
-                            $sql = "SELECT * FROM participants_retouche p INNER JOIN users u ON u.idusers = p.idusers INNER JOIN raw r on r.idraw = p.idraw WHERE discord_username = '$name' AND participer = 1 LIMIT 1;";
-                            $participret = $conn->query($sql);
-
-                            if ($participret->num_rows > 0) {
-                                $row = $participret->fetch_assoc(); // Fix the typo here
-                                $nomFichier = $row["file"];
-                                $raw = $row["nomraw"];
+                        <?php
+                            $sql = "SELECT * FROM participants p INNER JOIN users u ON u.idusers = p.idusers INNER JOIN theme t on t.idtheme = p.idtheme WHERE discord_username = '$name' AND formulaire = 2 AND participer = 1 LIMIT 1;";
+                            $particip = $conn->query($sql);
+                            if ($particip->num_rows > 0) {
+                                $row = $particip->fetch_assoc();
+                                $nomFichier = $row["img"];
+                                $theme = $row["theme"];
+                                $idparticipant = $row["idparticipant"];
                                 $cheminImage = "../img/Participants/" . $nomFichier;
-                                $idparticipantretouche = $row["idparticipantretouche"]; // Define $idparticipantretouche
-
                                 ?>
                                 <div class="card-body">
                                     <div class="row mb-4">
-                                        <div class="card card-off">
-                                            <p for="participant_<?php echo $idparticipantretouche; ?>" class="card-title"><b><?php echo "Thème: ", $raw; ?></b></p>
-                                            <a href="<?php echo $cheminImage; ?>" data-lightbox="images" data-title="Option <?php echo $idparticipantretouche; ?>">
-                                                <img src="<?php echo $cheminImage; ?>" alt="<?php echo $nomFichier; ?>" class="card-img-top">
-                                            </a>
-                                        </div>
+                                            <div class="card card-off">
+                                                <p for="participant_<?php echo $idparticipant; ?>" class="card-title"><b><?php echo "Thème: ", $theme; ?></b></p>
+                                                <a href="<?php echo $cheminImage; ?>" data-lightbox="images" data-title="Option <?php echo $idparticipant; ?>">
+                                                    <img src="<?php echo $cheminImage; ?>" alt="<?php echo $nomFichier; ?>" class="card-img-top">
+                                                </a>
+                                            </div>
                                     </div>
                                 </div>
-                            <?php } else {
-                                echo '
-                                <div class="card-body">
-                                    <div class="row mb-4">
-                                        <div class="card card-off">
-                                            <h3> Tu n\'as pas encore participé au <br> concours retouche</h3> 
-                                                <a href="participer-retouche.php" class="btn btn-primary">Je veux participer</a>
+                                <?php } else {
+                                    echo '
+                                    <div class="card-body">
+                                        <div class="row mb-4">
+                                            <div class="card card-off">
+                                                <h3> Tu n\'as pas encore participé au <br> concours photo</h3> 
+                                                    <a href="participer-retouche.php" class="btn btn-primary">Je veux participer</a>
+                                            </div>
                                         </div>
-                                    </div>
-                                </div>';
-                            }?>
+                                    </div>';
+                                    }?>
                         </div>
                     </div>
                 </div>
                 <div class="tab-pane fade" id="concoursphoto" role="tabpanel" aria-labelledby="concoursphoto-tab">
                     <div class="row">
                         <?php
-                        $sql = "SELECT * FROM participants_photo p INNER JOIN users u ON u.idusers = p.idusers WHERE participer = 1";
+                        $sql = "SELECT * FROM participants p INNER JOIN users u ON u.idusers = p.idusers WHERE participer = 1";
                         $photo_participants = $conn->query($sql);
                         while ($row = mysqli_fetch_assoc($photo_participants)) {
                             $nomFichier = $row["file"];

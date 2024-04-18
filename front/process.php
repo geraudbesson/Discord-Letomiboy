@@ -5,7 +5,7 @@ $db = new Database();
 // Création des participation au concours photo
 if (isset($_POST['action']) && $_POST['action'] === 'create'){
         extract($_POST);
-        $db->create((int)$idusers, $file, $exifs, $funfact, (int)$idtheme);
+        $db->create((int)$idusers, $img, $exifs, $funfact, (int)$idtheme);
         echo 'perfect';
     }
 
@@ -33,7 +33,7 @@ if (isset($_POST['action']) && $_POST['action'] === 'fetchCP'){
             <tr>
                 <th scope=\"row\">$billCP->idparticipant</th>
                 <td><img src=\"https://cdn.discordapp.com/avatars/$billCP->discord_id/$billCP->discord_avatar.jpg\" style=\"width: 35px; height: auto;\">$billCP->discord_username</td>
-                <td><img src=\"../img/Participants/$billCP->file\" alt=\"$billCP->file\" style=\"width: 150px; height: auto;\"></td>
+                <td><img src=\"../img/Participants/$billCP->img\" alt=\"$billCP->img\" style=\"width: 150px; height: auto;\"></td>
                 <td>$billCP->exifs</td>
                 <td>$billCP->funfact</td>
                 <td>
@@ -109,7 +109,7 @@ if (isset($_POST['action']) && $_POST['action'] === 'fetchRCP'){
             <tr class=\"\">
                 <th scope=\"row\">$counterRCP</th>
                 <td><img src=\"https://cdn.discordapp.com/avatars/$billRCF->discord_id/$billRCF->discord_avatar.jpg\" style=\"width: 35px; height: auto;\"> $billRCF->discord_username</td>
-                <td><img src=\"../img/Participants/$billRCF->file\" alt=\"$billRCF->file\" style=\"width: 150px; height: auto;\"></td>
+                <td><img src=\"../img/Participants/$billRCF->img\" alt=\"$billRCF->img\" style=\"width: 150px; height: auto;\"></td>
                 <td scope=\"row\">$billRCF->moyenne</td>
                 <td>
                     <a href=\"#\" class=\"text-info me-2 infoBtn\" title=\"Voir info personne\"><i class=\"fas fa-info-circle\"></i></a>

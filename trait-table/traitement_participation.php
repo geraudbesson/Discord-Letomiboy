@@ -5,25 +5,36 @@
 
     if ($_SERVER["REQUEST_METHOD"] == "POST") {
         $idusers = mysqli_real_escape_string($conn, $_POST['idusers']);
-        $file = mysqli_real_escape_string($conn, $_FILES['file']['name']);
+        $image = mysqli_real_escape_string($conn, $_FILES['file']['name']);
         $exifs = mysqli_real_escape_string($conn, $_POST['exifs']);
         $funfact = mysqli_real_escape_string($conn, $_POST['funfact']);
         $idtheme = mysqli_real_escape_string($conn, $_POST['idtheme']);
     
         $nomFichier = $_FILES["file"]["name"];
         $cheminTemporaire = $_FILES["file"]["tmp_name"];
-        
-        $cheminFinal = "../img/Participants/" . $file;
-        move_uploaded_file($cheminTemporaire, $cheminFinal);
+        $cheminFinal = "../img/Participants/" . $image;
 
-        $requete = "INSERT INTO participants_photo (idusers, file, exifs, funfact, idtheme) VALUES ('$idusers', '$file', '$exifs', '$funfact', '$idtheme');";
-        
+        // Vérifier les erreurs de téléchargement du fichier
+        if ($_FILES['file']['error'] > 0) {
+            echo 'Erreur lors du téléchargement du fichier : ' . $_FILES['file']['error'];
+        } else {
+            // Déplacer le fichier vers le dossier img-thème
+            if (move_uploaded_file($cheminTemporaire, $cheminFinal)) {
+                echo "Le fichier a été déplacé avec succès.";
+            } else {
+                echo "Erreur lors du déplacement du fichier.";
+            }
+        }
+
+        $requete = "INSERT INTO participants (idusers, img, exifs, funfact, idtheme, formulaire) VALUES ('$idusers', '$image', '$exifs', '$funfact', '$idtheme', 1);";
+
         if ($conn->query($requete) === TRUE) {
+            // ...
         } else {
             echo "Erreur lors de l'insertion des données : " . $conn->error;
         }
 
-        header("Location: ../front/front-secondaire/confirmation-participation.php");
+        header("Location: ../front/dashboard.php");
         $conn->close();
     }
 ?>

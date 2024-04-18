@@ -45,7 +45,7 @@
         }
 
         function checkParticiperValue($name, $conn) {
-            $sql_select_participer = "SELECT participer FROM participants_photo p INNER JOIN users u ON u.idusers = p.idusers WHERE u.discord_username = '$name' AND participer = 1";
+            $sql_select_participer = "SELECT participer FROM participants p INNER JOIN users u ON u.idusers = p.idusers WHERE u.discord_username = '$name' AND participer = 1 AND formulaire = 1";
             $result_participer = $conn->query($sql_select_participer);
 
             if ($result_participer === FALSE) {
@@ -90,22 +90,25 @@
 </head>
 <body>
     <div class="container-form">
-    
-    <h2>Hey <?php echo $name?>, Tu peux soumettre ta participation via le formulaire ci-dessous.</h2>
-    <p>Veuille à bien lire le règlement</p>
         <div class="content-box">
             <div class="info-box">
                 <h1 style="margin-bottom: 25px;">Informations à propos du concours</h1>
                 <div class="separator"></div>
-                <li style="margin-top: 25px;">Vous avez 3 semaines pour soumettre votre photo dans ce formulaire ci-contre</li>
+                <li style="margin-top: 25px;">Vous avez jusqu'au
+                    <?php
+                        $sql = "SELECT DATE_FORMAT(datefintheme, '%d-%m-%Y') AS datefin FROM theme WHERE concours = 1 ORDER BY idtheme DESC LIMIT 1;";
+                        $result = mysqli_query($conn, $sql);
+                        $row = mysqli_fetch_assoc($result);
+                        $datefin = $row['datefin'];
+                        echo "<b>", $datefin, "</b>"?> pour soumettre votre photo dans ce formulaire ci-contre</li>
                 <li>1 seule photo sera acceptée.</li>
                 <li>Merci de donner l’appareil utilisé et les réglages si vous les avez.</li>
                 <li>Aucun changement n’est possible, donc choisissez bien la photo que vous proposez pour le concours.</li>
                 <li>La photo doit avoir été prise durant les 3 mois précedent l'annonce du thème si vous ne parvenez pas durant le mois en cours.</li>
-                <li>Si l'une des règles n'est pas respectée nous vous demanderons de modifier votre photo.</li>
+                <li>Toutes les participations sont vérifiée par les modérateurs. Si l'une des règles n'est pas respectée nous supprimerons votre participation et vous demanderons de modifier celle-ci.</li>
             </div>
             <div class="form-box">
-                <h1>Soumettre votre participation</h1>
+                <h1>Formulaire de participation au concours photo</h1>
                 <form action="../trait-table/traitement_participation.php" method="post" enctype="multipart/form-data">
                     <?php
                     extract($_SESSION['userData']);
@@ -130,12 +133,12 @@
                             <div class="form-floating mb-3">
                                 <input type="hidden" id="texte" name="idusers" value="<?php echo $idusers ?>">
                             </div>
-                    <?php
-                    } else {
-                        // Si aucun résultat n'est trouvé, affichez un message d'erreur ou prenez une autre action appropriée
-                        echo "Erreur : Aucun utilisateur trouvé pour le nom d'utilisateur Discord : $name";
-                    }
-                    ?>
+                                <?php
+                                } else {
+                                    // Si aucun résultat n'est trouvé, affichez un message d'erreur ou prenez une autre action appropriée
+                                    echo "Erreur : Aucun utilisateur trouvé pour le nom d'utilisateur Discord : $name";
+                                }
+                                ?>
 
                         <div class="mb-3">
                             <label for="file" class="col-sm-2 col-form-label">Téléverser un Fichier:</label>
@@ -145,19 +148,19 @@
                         
                     <div class="row">
                         <div class="col">
-                            <div class="form-floating mb-3">
-                                <input type="text" id="texte2" name="exifs"class="form-control is-invalid" id="validationTextarea" placeholder="Required example textarea" required></input>
-                                <label for="texte2" id="floatingInput">EXIFS:</label>
+                            <div class="mb-3">
+                                <label for="texte2">EXIFS:</label>
+                                <textarea type="text" id="texte2" name="exifs"class="form-control"></textarea>
                             </div>
                         </div>
                         <div class="col">
-                            <div class="form-floating mb-3">
-                                <input type="text" id="texte3" name="funfact" class="form-control" id="floatingInput"></input>
-                                <label for="texte3" id="floatingInput">Anecdotes et funfacts:</label>
+                            <div class="mb-3">
+                                <label for="texte3">Anecdotes et funfacts:</label>
+                                <textarea type="text" id="texte3" name="funfact" class="form-control"></textarea>
                             </div>
                         </div>
                         <?php 
-                            $sql = "SELECT * FROM theme ORDER BY idtheme DESC LIMIT 1;";
+                            $sql = "SELECT * FROM theme WHERE concours = 1 ORDER BY idtheme DESC LIMIT 1;";
                             $result = mysqli_query($conn, $sql);
                             $row = mysqli_fetch_assoc($result);
                             $lastThemeId = $row['idtheme'];

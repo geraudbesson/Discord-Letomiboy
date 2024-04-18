@@ -43,113 +43,151 @@
 
             <div class="tab-content" id="myTabContent">
                 <div class="tab-pane fade show active" id="dashboard" role="tabpanel" aria-labelledby="dashboard-tab">
-                    <div class="mb-3">
-                        <form action="admin.php" method="post">
-                            <label>
-                                <h3>Concours photo</h3>
-                                <?php
-                                    $sql_select = "SELECT formphoto FROM formulaire";
-                                    $result = $conn->query($sql_select);
-            
-                                    if ($result === FALSE) {
-                                        echo "Erreur dans la requête : " . $conn->error;
-                                    } else {
-                                        if ($result->num_rows > 0) {
-                                            $row = $result->fetch_assoc();
-                                            $currentFormValue = $row["formphoto"];
-            
-                                            if ($currentFormValue == 1) {
-                                                echo "Participation activer";
-                                            } elseif ($currentFormValue == 2) {
-                                                echo "Vote activer";
-                                            } elseif ($currentFormValue == 3) {
-                                                echo "FERMÉ";
+                    <div class="container">
+                        <div class="row">
+                            <div class="col-md-4 mb-3">
+                                <form action="admin.php" method="post">
+                                    <label>
+                                        <h3>Concours photo</h3>
+                                        <?php
+                                            $sql_select = "SELECT formphoto FROM formulaire";
+                                            $result = $conn->query($sql_select);
+                    
+                                            if ($result === FALSE) {
+                                                echo "Erreur dans la requête : " . $conn->error;
                                             } else {
-                                                echo "La valeur de 'form' n'est pas reconnue.";
+                                                if ($result->num_rows > 0) {
+                                                    $row = $result->fetch_assoc();
+                                                    $currentFormValue = $row["formphoto"];
+                    
+                                                    if ($currentFormValue == 1) {
+                                                        echo "Participation activer";
+                                                    } elseif ($currentFormValue == 2) {
+                                                        echo "Vote activer";
+                                                    } elseif ($currentFormValue == 3) {
+                                                        echo "FERMÉ";
+                                                    } else {
+                                                        echo "La valeur de 'form' n'est pas reconnue.";
+                                                    }
+                                                }
                                             }
+                                        ?>
+                                        <select class="form-select" name="formphoto">
+                                            <option selected>Choix du formulaire</option>
+                                            <option value="1">Formulaire de participation</option>
+                                            <option value="2">Formulaire de vote</option>
+                                            <option value="3">Formulaires fermés</option>
+                                        </select>
+                                    </label>
+                                    <input class="btn btn-info" type="submit" value="Valider">
+                                </form>
+                                <?php
+                                    if ($_SERVER["REQUEST_METHOD"] == "POST") {
+                                        $formphoto = isset($_POST['formphoto']) && $_POST['formphoto'] !== '' ? $_POST['formphoto'] : null;
+                                    
+                                        if ($formphoto !== null) {
+                                            $sql = "UPDATE formulaire SET formphoto = $formphoto";
+                                            if ($conn->query($sql) === TRUE) {
+                                                echo "Formulaire mis à jour avec succès!";
+                                            } else {
+                                                echo "Erreur lors de la mise à jour du formulaire : " . $conn->error;
+                                            }
+                                        } else {
+                                            echo "Aucune option sélectionnée.";
                                         }
                                     }
                                 ?>
-                                <select class="form-select" name="formphoto">
-                                    <option selected>Choix du formulaire</option>
-                                    <option value="1">Formulaire de participation</option>
-                                    <option value="2">Formulaire de vote</option>
-                                    <option value="3">Formulaires fermés</option>
-                                </select>
-                            </label>
-                            <input class="btn btn-info" type="submit" value="Valider">
-                        </form>
-                    <?php
-                        if ($_SERVER["REQUEST_METHOD"] == "POST") {
-                            $formphoto = isset($_POST['formphoto']) && $_POST['formphoto'] !== '' ? $_POST['formphoto'] : null;
-                        
-                            if ($formphoto !== null) {
-                                $sql = "UPDATE formulaire SET formphoto = $formphoto";
-                                if ($conn->query($sql) === TRUE) {
-                                    echo "Formulaire mis à jour avec succès!";
-                                } else {
-                                    echo "Erreur lors de la mise à jour du formulaire : " . $conn->error;
-                                }
-                            } else {
-                                echo "Aucune option sélectionnée.";
-                            }
-                        }
-                    ?>
-                    </div>
+                            </div>
 
-                    <div class="mb-3">
-                        <form action="admin.php" method="post">
-                            <label>
-                                <h3>Concours retouche</h3>
-                                <?php
-                                    $sql_select = "SELECT formretouche FROM formulaire";
-                                    $result = $conn->query($sql_select);
+                            <div class="col-md-4 mb-3">
+                                <form action="admin.php" method="post">
+                                    <label>
+                                        <h3>Concours retouche</h3>
+                                        <?php
+                                            $sql_select = "SELECT formretouche FROM formulaire";
+                                            $result = $conn->query($sql_select);
 
-                                    if ($result === FALSE) {
-                                        echo "Erreur dans la requête : " . $conn->error;
-                                    } else {
-                                        if ($result->num_rows > 0) {
-                                            $row = $result->fetch_assoc();
-                                            $currentFormValue = $row["formretouche"];
-
-                                            if ($currentFormValue == 1) {
-                                                echo "Participation activer";
-                                            } elseif ($currentFormValue == 2) {
-                                                echo "Vote activer";
-                                            } elseif ($currentFormValue == 3) {
-                                                echo "FERMÉ";
+                                            if ($result === FALSE) {
+                                                echo "Erreur dans la requête : " . $conn->error;
                                             } else {
-                                                echo "La valeur de 'form' n'est pas reconnue.";
+                                                if ($result->num_rows > 0) {
+                                                    $row = $result->fetch_assoc();
+                                                    $currentFormValue = $row["formretouche"];
+
+                                                    if ($currentFormValue == 1) {
+                                                        echo "Participation activer";
+                                                    } elseif ($currentFormValue == 2) {
+                                                        echo "Vote activer";
+                                                    } elseif ($currentFormValue == 3) {
+                                                        echo "FERMÉ";
+                                                    } else {
+                                                        echo "La valeur de 'form' n'est pas reconnue.";
+                                                    }
+                                                }
                                             }
+                                        ?>
+                                        <select class="form-select" name="formretouche">
+                                            <option selected>Choix du formulaire</option>
+                                            <option value="1">Formulaire de participation</option>
+                                            <option value="2">Formulaire de vote</option>
+                                            <option value="3">Formulaires fermés</option>
+                                        </select>
+                                    </label>
+                                    <input class="btn btn-info" type="submit" value="Valider">
+                                </form>
+                                <?php
+                                    if ($_SERVER["REQUEST_METHOD"] == "POST") {
+                                        $formretouche = isset($_POST['formretouche']) && $_POST['formretouche'] !== '' ? $_POST['formretouche'] : null;
+                                    
+                                        if ($formretouche !== null) {
+                                            $sql = "UPDATE formulaire SET formretouche = $formretouche";
+                                            if ($conn->query($sql) === TRUE) {
+                                                echo "Formulaire mis à jour avec succès!";
+                                            } else {
+                                                echo "Erreur lors de la mise à jour du formulaire : " . $conn->error;
+                                            }
+                                        } else {
+                                            echo "Aucune option sélectionnée.";
                                         }
                                     }
-                                ?>
-                                <select class="form-select" name="formretouche">
-                                    <option selected>Choix du formulaire</option>
-                                    <option value="1">Formulaire de participation</option>
-                                    <option value="2">Formulaire de vote</option>
-                                    <option value="3">Formulaires fermés</option>
-                                </select>
-                            </label>
-                            <input class="btn btn-info" type="submit" value="Valider">
-                        </form>
-                    <?php
-                        if ($_SERVER["REQUEST_METHOD"] == "POST") {
-                            $formretouche = isset($_POST['formretouche']) && $_POST['formretouche'] !== '' ? $_POST['formretouche'] : null;
-                        
-                            if ($formretouche !== null) {
-                                $sql = "UPDATE formulaire SET formretouche = $formretouche";
-                                if ($conn->query($sql) === TRUE) {
-                                    echo "Formulaire mis à jour avec succès!";
-                                } else {
-                                    echo "Erreur lors de la mise à jour du formulaire : " . $conn->error;
-                                }
-                            } else {
-                                echo "Aucune option sélectionnée.";
-                            }
-                        }
 
-                    ?>
+                                ?>
+                            </div>
+
+                            <div class="col-md-4 mb-3">
+                                <h2>Ajouter un Nouveau Thème</h2>
+                                <form action="../trait-table/traitement_theme.php" method="post" enctype="multipart/form-data">
+                                    <div class="mb-3">
+                                        <label for="file" class="form-label">Image du Thème (Thème / RAW)</label>
+                                        <input type="file" class="form-control" name="file" id="file" required>
+                                    </div>
+
+                                    <div class="mb-3">
+                                        <label for="text" class="form-label">Attribuer un nom au thème/raw</label>
+                                        <input type="text" class="form-control" name="text" id="text" required>
+                                    </div>
+
+                                    <div class="mb-3">
+                                        <label for="concours" class="form-label">Type de Concours</label>
+                                        <select class="form-select" name="concours" id="concours" required>
+                                            <option value="" disabled selected>Choisir le type de concours</option>
+                                            <option value="1">Concours Photo</option>
+                                            <option value="2">Concours Retouche</option>
+                                        </select>
+                                    </div>
+
+                                    <div class="mb-3">
+                                        <label for="date" class="form-label">Date de Fin du Thème</label>
+                                        <input type="date" class="form-control" name="date" id="date" required>
+                                    </div>
+
+                                    <div class="mb-3">
+                                        <input type="submit" class="btn btn-info" value="Ajouter le Thème">
+                                    </div>
+                                </form>
+                            </div>
+
+                        </div>
                     </div>
                 </div>
                 <div class="tab-pane fade" id="concoursphoto" role="tabpanel" aria-labelledby="concoursphoto-tab">
@@ -197,61 +235,61 @@
     <div class="modal fade" id="createpartphoto" tabindex="-1" aria-labelledby="createpartphotoLabel" aria-hidden="true">
         <div class="modal-dialog">
             <div class="modal-content">
-            <div class="modal-header">
-                <h5 class="modal-title" id="createpartphotoLabel">Nouvelle participation</h5>
-                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-            </div>
-            <div class="modal-body">
-                <form action="" method="post" id="formOrderconcours" enctype="multipart/form-data">
-                    <div class="mb-3">
-                        <?php
-                            $result = $conn->query("SELECT idusers, discord_username FROM users");
-                            if ($result) {
-                                $options = '';
-                                while ($row = $result->fetch_assoc()) {
-                                    $idusers = $row['idusers'];
-                                    $discordUsername = $row['discord_username'];
-                                    $options .= "<option value=\"$idusers\">$discordUsername</option>";
+                <div class="modal-header">
+                    <h5 class="modal-title" id="createpartphotoLabel">Nouvelle participation</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <form action="" method="post" id="formOrderconcours" enctype="multipart/form-data">
+                        <div class="mb-3">
+                            <?php
+                                $result = $conn->query("SELECT idusers, discord_username FROM users");
+                                if ($result) {
+                                    $options = '';
+                                    while ($row = $result->fetch_assoc()) {
+                                        $idusers = $row['idusers'];
+                                        $discordUsername = $row['discord_username'];
+                                        $options .= "<option value=\"$idusers\">$discordUsername</option>";
+                                    }
                                 }
-                            }
-                        ?>
-                        <label for="idusers">Auteur</label>
-                        <select class="form-select" id="idusers" aria-label="idusers" name="idusers">
-                            <?php echo $options; ?>
-                        </select>
-                    </div>
-                    <div class="mb-3">
-                        <label for="file">Téléverser un Fichier:</label>
-                        <input type="texte" class="form-control" id="file" name="file">
-                    </div>
-                    <div class="row">
-                        <div class="col">
-                            <div class="form-floating mb-3">
-                                <input type="text" class="form-control" id="exifs" name="exifs">
-                                <label for="exifs">EXIFS:</label>
-                            </div>
-                        </div>
-                        <div class="col">
-                            <div class="form-floating mb-3">
-                                <input type="text" class="form-control" id="funfact" name="funfact">
-                                <label for="funfact">Anecdotes et funfacts:</label>
-                            </div>
-                            
-                            <?php 
-                                $sql = "SELECT * FROM theme ORDER BY idtheme DESC LIMIT 1;";
-                                $result = mysqli_query($conn, $sql);
-                                $row = mysqli_fetch_assoc($result);
-                                $idtheme = $row['idtheme'];
                             ?>
-                            <input type="hidden" id="idtheme" name="idtheme" value="<?php echo $idtheme?>">
+                            <label for="idusers">Auteur</label>
+                            <select class="form-select" id="idusers" aria-label="idusers" name="idusers">
+                                <?php echo $options; ?>
+                            </select>
                         </div>
-                    </div>
-                </form>
-            </div>
-            <div class="modal-footer">
-                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Fermer</button>
-                <button type="button" class="btn btn-primary" name="create" id="create">Ajouter la participation</button>
-            </div>
+                        <div class="mb-3">
+                            <label for="file">Téléverser un Fichier:</label>
+                            <input type="file" class="form-control" id="file" name="file">
+                        </div>
+                        <div class="row">
+                            <div class="col">
+                                <div class="form-floating mb-3">
+                                    <input type="text" class="form-control" id="exifs" name="exifs">
+                                    <label for="exifs">EXIFS:</label>
+                                </div>
+                            </div>
+                            <div class="col">
+                                <div class="form-floating mb-3">
+                                    <input type="text" class="form-control" id="funfact" name="funfact">
+                                    <label for="funfact">Anecdotes et funfacts:</label>
+                                </div>
+                                
+                                <?php 
+                                    $sql = "SELECT * FROM theme ORDER BY idtheme DESC LIMIT 1;";
+                                    $result = mysqli_query($conn, $sql);
+                                    $row = mysqli_fetch_assoc($result);
+                                    $idtheme = $row['idtheme'];
+                                ?>
+                                <input type="hidden" id="idtheme" name="idtheme" value="<?php echo $idtheme?>">
+                            </div>
+                        </div>
+                    </form>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Fermer</button>
+                    <button type="button" class="btn btn-primary" name="create" id="create">Ajouter la participation</button>
+                </div>
             </div>
         </div>
     </div>

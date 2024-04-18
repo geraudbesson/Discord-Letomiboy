@@ -25,9 +25,7 @@
       <li><a href="http://localhost/site/front/formulaires.php">Formulaires concours</a></li>
       <li><a href="http://localhost/site/front/archives.php">Archives</a></li>
       <?php
-      // Vérifiez si l'utilisateur est connecté et a le rôle d'admin
       if (isset($_SESSION['userData']) && $_SESSION['userData']['role'] == 'admin') {
-        // Si l'utilisateur est connecté et a le rôle d'admin, affichez le bouton "Admin"
         echo '<li><a href="http://localhost/site/front/admin.php">Admin</a></li>';
       }
       ?>
@@ -35,9 +33,7 @@
   </nav>
   <div id="connexion">
     <?php
-    // Vérifiez si l'utilisateur est connecté
     if (isset($_SESSION['userData'])) {
-      // Si l'utilisateur est connecté, récupérez les données de la session
       extract($_SESSION['userData']);
       $avatar_url = "https://cdn.discordapp.com/avatars/$discord_id/$avatar.jpg";
     ?>
@@ -59,14 +55,12 @@
 
         <?php
         $resultat = $conn->query("SELECT * FROM theme");
-        // Boucle pour générer les cards
         while ($row = $resultat->fetch_assoc()) {
             $idtheme = $row["idtheme"];
             $nomTheme = $row["theme"];
             $imageURL = $row["nomimg"];
             $image = "../img/img-theme/" . $imageURL;
 
-            // Générer la card Bootstrap avec l'image et le bouton
             echo "
             <div class='col-md-4 mb-3'>
                 <div class='card'>
@@ -80,7 +74,6 @@
             ";
         }
 
-        // Fermer la connexion à la base de données
         $conn->close();
         ?>
 
